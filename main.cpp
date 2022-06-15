@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 20:35:32 by jisokang          #+#    #+#             */
-/*   Updated: 2022/06/14 20:36:21 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/06/15 15:38:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 #include <stdlib.h>
 
-#define MAX_RAM 4294967296
+#define MAX_RAM 4294967296	//2^32
 #define BUFFER_SIZE 4096
 struct Buffer
 {
