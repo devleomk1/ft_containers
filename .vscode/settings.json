@@ -2,6 +2,18 @@
 	"files.associations": {
 		"memory": "cpp",
 		"algorithm": "cpp",
-		"vector": "cpp"
+		"vector": "cpp",
+		"__hash_table": "cpp",
+		"__split_buffer": "cpp",
+		"__tree": "cpp",
+		"array": "cpp",
+		"bitset": "cpp",
+		"deque": "cpp",
+		"initializer_list": "cpp",
+		"map": "cpp",
+		"stack": "cpp",
+		"string": "cpp",
+		"string_view": "cpp",
+		"unordered_map": "cpp"
 	}
 }

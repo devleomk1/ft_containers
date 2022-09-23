@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/22 19:37:48 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/09/23 15:35:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//vector<bool> 전문화를 수행할 필요가 없습니다.
+//vector<bool> 전문화를 수행할 필요가 없습니다. ->
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
@@ -18,7 +18,6 @@
 # include <memory>
 # include <algorithm>
 # include <vector>
-//# include
 
 /**
  * @brief
@@ -30,7 +29,6 @@ namespace ft
 	class vector
 	{
 	public:
-
 		//types:
 		typedef typename	Allocator::reference		reference;
 		typedef typename	Allocator::const_reference	const_reference;
@@ -46,8 +44,8 @@ namespace ft
 		typedef std::reverse_iterator<const_iterator>	conset_reverse_iterator;
 
 		//23.2.4.1 construct/copy/destroy
-		explicit vector(const Allocator& = Allocator());			//explicit가 뭐였지?
-		explicit vector(size_type n, const T& value = T(), const Allocator& = Allocator());
+		explicit	vector(const Allocator& = Allocator());			//explicit가 뭐였지? -> 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
+		explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator());
 		template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 		vector(const vector<T, Allocator>& x);
@@ -69,20 +67,34 @@ namespace ft
 		const_reverse_iterator	rend() const;
 
 		//capacity:
-		size_type	size() const;
-		size_type	max_size() const;
-		void		resize(size_type sz, T c = T());
-		size_type	capacity() const;
-		bool		empty() const;
-		void		reverse(size_type n);
+		size_type				size() const;
+		size_type				max_size() const;
+		void					resize(size_type sz, T c = T());
+		size_type				capacity() const;
+		bool					empty() const;
+		void					reverse(size_type n);
 
 		//element access
+		reference				operator[](size_type n);
+		const_reference			operator[](size_type n) const;
+		reference				at(size_type n);
+		const_reference			at(size_type n) const;
+		reference				front();
+		const_reference			front() const;
+		reference				back();
+		const_reference			back() const;
 
 		//modifiers:
-		void	push_back(const	T& x);
-		void	pop_back();
-		iterator insert(iterator position, const T& x);
-		iterator insert(iterator position, size_type n, const T& x);
+		void					push_back(const	T& x);
+		void					pop_back();
+		iterator				insert(iterator position, const T& x);
+		void					insert(iterator position, size_type n, const T& x);
+		template <class InputIterator>
+			void				insert(iterator position, InputIterator first, InputIterator last);
+		iterator				erase(iterator position);
+		iterator				erase(iterator first, iterator last);
+		void					swap(vector<T, Allocator>&);
+		void					clear();
 	};
 
 }
