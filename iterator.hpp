@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/24 16:21:06 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/09/25 23:01:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,39 +105,39 @@ namespace ft
 		insert_iterator<Container> inserter(Container& x, Iterator i);
 
 	//24.5 stream iterators:
-	template <class T, class charT = char, class traits = char_traits<charT>, class Distance = ptrdiff_t>
-															//char_traits는 뭔데 하이라이트가 안될까?
-	class istream_iterator;
-	template <class T, class charT, class traits, class Distance>
-		bool operator==
-		(
-			const istream_iterator<T, charT, traits, Distance>& x,
-			const istream_iterator<T, charT, traits, Distance>& y
-		);
-	template <class T, class charT, class traits, class Distance>
-		bool operator!=
-		(
-			const istream_iterator<T, charT, traits, Distance>& x,
-			const istream_iterator<T, charT, traits, Distance>& y
-		);
-	template <class T, class charT = char, class traits = char_traits<charT> >
-		class ostream_iterator;
-	template <class charT, class traits = char_traits<charT> >
-		class istreambuf_iterator;
-	template <class charT, class traits>
-		bool operator==
-		(
-			const istreambuf_iterator<charT, traits>& a,
-			const istreambuf_iterator<charT, traits>& b
-		);
-	template <class charT, class traits>
-		bool operator!=
-		(
-			const istreambuf_iterator<charT, traits>& a,
-			const istreambuf_iterator<charT, traits>& b
-		);
-	template <class charT, class traits = char_traits<charT> >
-		class ostreambuf_iterator;
+	//template <class T, class charT = char, class traits = char_traits<charT>, class Distance = ptrdiff_t>
+	//														//char_traits는 뭔데 하이라이트가 안될까?
+	//class istream_iterator;
+	//template <class T, class charT, class traits, class Distance>
+	//	bool operator==
+	//	(
+	//		const istream_iterator<T, charT, traits, Distance>& x,
+	//		const istream_iterator<T, charT, traits, Distance>& y
+	//	);
+	//template <class T, class charT, class traits, class Distance>
+	//	bool operator!=
+	//	(
+	//		const istream_iterator<T, charT, traits, Distance>& x,
+	//		const istream_iterator<T, charT, traits, Distance>& y
+	//	);
+	//template <class T, class charT = char, class traits = char_traits<charT> >
+	//	class ostream_iterator;
+	//template <class charT, class traits = char_traits<charT> >
+	//	class istreambuf_iterator;
+	//template <class charT, class traits>
+	//	bool operator==
+	//	(
+	//		const istreambuf_iterator<charT, traits>& a,
+	//		const istreambuf_iterator<charT, traits>& b
+	//	);
+	//template <class charT, class traits>
+	//	bool operator!=
+	//	(
+	//		const istreambuf_iterator<charT, traits>& a,
+	//		const istreambuf_iterator<charT, traits>& b
+	//	);
+	//template <class charT, class traits = char_traits<charT> >
+	//	class ostreambuf_iterator;
 }
 
 #endif
