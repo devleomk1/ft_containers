@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/23 15:35:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:33:00 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # define VECTOR_HPP
 
 # include <memory>
-# include <algorithm>
-# include <vector>
-
+//# include <algorithm>
+//# include <vector>
+# include "iterator_traits.hpp"
 /**
  * @brief
  *
@@ -40,11 +40,12 @@ namespace ft
 		typedef Allocator								allocator_type;
 		typedef typename	Allocator::pointer			pointer;
 		typedef typename	Allocator::constr_pointer	const_pointer;
-		typedef std::reverse_iterator<iterator>			reverse_iterator;
-		typedef std::reverse_iterator<const_iterator>	conset_reverse_iterator;
+		typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>	conset_reverse_iterator;
 
 		//23.2.4.1 construct/copy/destroy
-		explicit	vector(const Allocator& = Allocator());			//explicit가 뭐였지? -> 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
+		explicit	vector(const Allocator& = Allocator())
+		{};			//explicit가 뭐였지? -> 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
 		explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator());
 		template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
