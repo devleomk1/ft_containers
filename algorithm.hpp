@@ -6,12 +6,12 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 14:53:18 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/28 15:09:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/09/29 15:17:21 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATOR_TRAITS_HPP
-# define ITERATOR_TRAITS_HPP
+#ifndef ALGORITHM_HPP
+# define ALGORITHM_HPP
 
 # include "iterator.hpp"
 
