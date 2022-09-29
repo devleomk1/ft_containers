@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 19:35:32 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/29 15:47:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/09/29 22:08:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,60 @@ namespace ft
 		explicit reverse_iterator(Iterator x);
 		template <class U> reverse_iterator(const reverse_iterator<U>& u);
 
-		Iterator base() const;
-		reference	operator*() const;
-		pointer		operator->() const;
+		Iterator base() const	{ return(current) };
+		reference	operator*() const{
+			Iterator tmp = current;
+			return *--tmp;
+		};
+		pointer		operator->() const{
+			return &(operator*());
+		};
 
-		reverse_iterator&	operator++();
-		reverse_iterator	operator++(int);
-		reverse_iterator&	operator--();
-		reverse_iterator	operator--(int);
+		reverse_iterator&	operator++(){
+			--current;
+			return (*this)
+		};
+		reverse_iterator	operator++(int){
+			reverse_iterator tmp = *this;
+			--current;
+			return (tmp);
+		};
+		reverse_iterator&	operator--(){
+			++current;
+			return (*this);
+		};
+		reverse_iterator	operator--(int){
+			reverse_iterator tmp = *this;
+			++current;
+			return (tmp);
+		};
 
-		reverse_iterator	operator+ (difference_type n) const;
-		reverse_iterator&	operator+=(difference_type n);
-		reverse_iterator	operator- (difference_type n) const;
-		reverse_iterator&	operator-=(difference_type n);
-		reference operator[](difference_type n) const;
+		reverse_iterator	operator+ (difference_type n) const{
+			return (reverse_iterator(current - n));
+		};
+		reverse_iterator&	operator+=(difference_type n){
+			current -= n;
+			return (*this);
+		};
+		reverse_iterator	operator- (difference_type n) const{
+			return (reverse_iterator(current+n));
+		};
+		reverse_iterator&	operator-=(difference_type n){
+			current += n;
+			return (*this);
+		};
+		reference operator[](difference_type n) const{
+			return (current[-n-1]);
+		};
 	};
 
 	template <class Iterator>
 		bool operator==(
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+
+			};
 	template <class Iterator>
 		bool operator<(
 			const reverse_iterator<Iterator>& x,
