@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 19:35:32 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/29 22:08:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/01 23:24:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,36 +88,57 @@ namespace ft
 			const reverse_iterator<Iterator>& x,
 			const reverse_iterator<Iterator>& y)
 			{
-
+				return (x.current == y.current);
 			};
 	template <class Iterator>
 		bool operator<(
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+				return (x.current > y.current);
+			};
 	template <class Iterator>
 		bool operator!=(
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+				return (x.current != y.current)
+			};
 	template <class Iterator>
 		bool operator>(
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+				return (x.current < y.current);
+			};
 	template <class Iterator>
 		bool operator>=(
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+				return (x.current <= y.current);
+			};
 	template <class Iterator>
 		bool operator<=(
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+				return (x.current >= y.current);
+			};
 	template <class Iterator>
-		typename reverse_iterator<Iterator>::difference_type operator-(
+		typename reverse_iterator<Iterator>::difference_type operator-(	//왜 difference_type으로 가져올까?
 			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y);
+			const reverse_iterator<Iterator>& y)
+			{
+				return (y.current - x.current);
+			};
 	template <class Iterator>
-		typename reverse_iterator<Iterator>::difference_type operator+(
+		typename reverse_iterator<Iterator>::difference_type operator+(	//왜 -n 으로 인자를 받을까 y가 아니고?
 			typename reverse_iterator<Iterator>::difference_type n,
-			const reverse_iterator<Iterator>& x);
+			const reverse_iterator<Iterator>& x)
+			{
+				return (x.current - n);
+			};
 }
 
 #endif
