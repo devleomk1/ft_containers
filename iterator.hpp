@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/27 21:24:03 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:10:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <cstddef>				//FOR ptrdiff_t (https://en.cppreference.com/w/cpp/types/ptrdiff_t)
 # include "iterator_traits.hpp"
+# include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -41,64 +42,71 @@ namespace ft
 
 	//24.3.4 iterator operations:
 	template <class InputIterator, class Distance>
-		void advance(InputIterator& i, Distance n);
+		void advance(InputIterator& i, Distance n){
+
+		};
 	template <class InputIterator>
 		typename iterator_traits<InputIterator>::difference_type
-		distance(InputIterator first, InputIterator last);
+		distance(InputIterator first, InputIterator last){
+
+		};
 
 	//24.4 predefined iterator:
-	template <class Iterator> class reverse_iterator;
+	//template <class Iterator> class reverse_iterator;
 
-	template <class Iterator>
-		bool operator==
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
-	template <class Iterator>
-		bool operator<
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
-	template <class Iterator>
-		bool operator!=
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
-	template <class Iterator>
-		bool operator>
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
-	template <class Iterator>
-		bool operator>=
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
-	template <class Iterator>
-		bool operator<=
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
+	//왜 ++이랑 --는 선언에 없는거지 없지?
+	//template <class Iterator>
+	//	bool operator==(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y)
+	//	{
+	//		return (x.current == y.current);
+	//	};
+	//template <class Iterator>
+	//	bool operator<(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y)
+	//		{
+	//			return (x.current > y.current);
+	//		};
+	//template <class Iterator>
+	//	bool operator!=
+	//	(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y
+	//	);
+	//template <class Iterator>
+	//	bool operator>
+	//	(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y
+	//	);
+	//template <class Iterator>
+	//	bool operator>=
+	//	(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y
+	//	);
+	//template <class Iterator>
+	//	bool operator<=
+	//	(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y
+	//	);
 
-	template <class Iterator>
-		typename reverse_iterator<Iterator>::difference_type operator-
-		(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y
-		);
-	template <class Iterator>
-		reverse_iterator<Iterator>
-			operator+
-			(
-				typename reverse_iterator<Iterator>::difference_type n,
-				const reverse_iterator<Iterator>& y
-			);
+	//template <class Iterator>
+	//	typename reverse_iterator<Iterator>::difference_type operator-
+	//	(
+	//		const reverse_iterator<Iterator>& x,
+	//		const reverse_iterator<Iterator>& y
+	//	);
+	//template <class Iterator>
+	//	reverse_iterator<Iterator>
+	//		operator+
+	//		(
+	//			typename reverse_iterator<Iterator>::difference_type n,
+	//			const reverse_iterator<Iterator>& y
+	//		);
 
 	//template <class Container> class back_insert_iterator;
 	//template <class Container>

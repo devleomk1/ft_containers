@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/28 19:33:00 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/02 20:58:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define VECTOR_HPP
 
 # include <memory>
+# include <stdexcept>
 //# include <algorithm>
 //# include <vector>
 # include "iterator_traits.hpp"
@@ -32,20 +33,24 @@ namespace ft
 		//types:
 		typedef typename	Allocator::reference		reference;
 		typedef typename	Allocator::const_reference	const_reference;
-		typedef implementation-defined					iterator;			//ISO 14882_1998 23.1
-		typedef implementation-defined					const_iterator;		//ISO 14882_1998 23.1
-		typedef implementation-defined					size_type;			//ISO 14882_1998 23.1
-		typedef implementation-defined					difference_type;	//ISO 14882_1998 23.1
+	//ISO 14882_1998 23.1 implementation-defined
+		typedef pointer									iterator;
+		typedef const_pointer							const_iterator;
+		typedef size_t									size_type;
+		typedef ptrdiff_t								difference_type;
+	//define end
 		typedef T										value_type;
 		typedef Allocator								allocator_type;
+		//typedef typename	Alloc::template rebind<T>::other	allocator_type; 왜 수문은 이렇게 했을까?
 		typedef typename	Allocator::pointer			pointer;
 		typedef typename	Allocator::constr_pointer	const_pointer;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	conset_reverse_iterator;
 
 		//23.2.4.1 construct/copy/destroy
-		explicit	vector(const Allocator& = Allocator())
-		{};			//explicit가 뭐였지? -> 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
+		//explicit가 뭐였지? -> 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
+		explicit	vector(const Allocator& = Allocator()) :
+		{};
 		explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator());
 		template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
@@ -96,6 +101,11 @@ namespace ft
 		iterator				erase(iterator first, iterator last);
 		void					swap(vector<T, Allocator>&);
 		void					clear();
+	protected:
+		allocator_type			alloc_type;
+		T*						alloc_start;
+		T*						alloc_finish;
+		T*						alloc_end_storage;
 	};
 
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 19:35:32 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/01 23:24:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/02 15:12:53 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ namespace ft
 			return (*this);
 		};
 		reference operator[](difference_type n) const{
-			return (current[-n-1]);
+			return (current[-n-1]);	//왜에?
 		};
 	};
 
