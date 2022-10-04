@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/04 16:02:00 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:12:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <cstddef>				//FOR ptrdiff_t (https://en.cppreference.com/w/cpp/types/ptrdiff_t)
 # include "iterator_traits.hpp"
-# include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -39,7 +38,7 @@ template <class Iterator>
 	protected:
 		Iterator current;
 	public:
-		typedef Iterator												iterator_type;
+		typedef Iterator											iterator_type;
 		typedef typename iterator_traits<Iterator>::difference_type	difference_type;
 		typedef typename iterator_traits<Iterator>::reference		reference;
 		typedef typename iterator_traits<Iterator>::pointer			pointer;

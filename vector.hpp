@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/04 15:25:35 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:57:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 # include <memory>
 # include <stdexcept>
-//# include <algorithm>
-//# include <vector>
 # include "iterator_traits.hpp"
+# include "iterator.hpp"
 /**
  * @brief
  *
@@ -51,28 +50,56 @@ namespace ft
 		//23.2.4.1 construct/copy/destroy
 		//explicit: 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
 		//explicit	vector(const Allocator& = Allocator())
-		explicit	vector(const allocator_type& a = allocator_type())
-			: ft_alloc(a), ft_start(0), ft_finish(0), ft_end_storage(0)
+		explicit	vector(const allocator_type& alloc = allocator_type())
+			: _alloc(alloc), _start(0), _finish(0), _end_storage(0)
 			{};
 		//왜 allocator로 alloc을 따로 하는거지?
 		//explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator())
-		explicit	vector(size_type n, const T& value = T(), const allocator_type& a = Allocator())
-			: _alloc(a), _start(0), _finish(0), _end_storage(0)
+		explicit	vector(size_type n, const T& value = T(), const allocator_type& alloc = Allocator())
+			: _alloc(alloc), _start(0), _finish(0), _end_storage(0)
 			{
 				_start = _alloc.allocate( n );
 				_end_storage = _start + n;
-				_finish = _start;
+				iterator i = _start;
 				while (n--)
 				{
-					_alloc.construct( _finish, value);
-					_finish++;
+					_alloc.construct( i, value);
+					i++;
 				}
+				_finish = i;
 			};
 
+		//need enable_if here! =========================================
 		template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
-		vector(const vector<T, Allocator>& x);
-		~vector();
+		//==============================================================
+
+		vector(const vector<T, Allocator>& x) : _alloc(x._alloc)
+		{
+			size_type n = x.size();
+			_start = _alloc.allocate( n );
+			_end_storage = _start + n;
+			iterator i = _start;
+			iterator j = x._start;
+			while (n--)
+			{
+				_alloc.construct( i, *j );	//이건 왜 *j 일까?
+				i++;
+				j++;
+			}
+			_finish = i;
+
+		};
+		~vector()
+		{
+			iterator i = _start;
+			while (i != _finish)
+			{
+				++i;
+				_alloc.destroy(i);
+			}
+			_allocator.deallocate(_start, _end_storage - _start);
+		};
 		vector<T, Allocator>& operator=(const vector<T, Allocator>& x);
 		template <class InputIterator>
 			void assign(InputIterator first, InputIterator last);
