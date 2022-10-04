@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:47:23 by jisokang          #+#    #+#             */
-/*   Updated: 2022/09/26 17:58:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:37:40 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ namespace ft
 
 	template<class T> struct iterator_traits<T*>
 	{
-		typedef ptrdiff_t					difference_type;
-		typedef T							value_type;
-		typedef T*							pointer;
-		typedef T&							reference;
-		typedef random_access_iterator_tag	iterator_category;
+		typedef ptrdiff_t								difference_type;
+		typedef T										value_type;
+		typedef T*										pointer;
+		typedef T&										reference;
+		typedef std::random_access_iterator_tag			iterator_category;
 	};
 
 	template<class T> struct iterator_traits<const T*>
 	{
-		typedef ptrdiff_t					difference_type;
-		typedef T							value_type;
-		typedef const T						pointer;
-		typedef const T&					reference;
-		typedef random_access_iterator_tag	iterator_category;
+		typedef ptrdiff_t								difference_type;
+		typedef T										value_type;
+		typedef const T									pointer;
+		typedef const T&								reference;
+		typedef std::random_access_iterator_tag			iterator_category;
 	};
 
 }

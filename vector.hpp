@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/03 22:03:54 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:25:35 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
  */
 namespace ft
 {
-	template <class T, class Allocator = std::allocator<T> >
+	//template <class T, class Allocator = std::allocator<T> >
+	template <class T, class Alloc = std::allocator<T> >			//왜 Allocator가 아니라 Alloc으로 하는 걸까?
 	class vector
 	{
 	public:
@@ -48,11 +49,26 @@ namespace ft
 		typedef ft::reverse_iterator<const_iterator>	conset_reverse_iterator;
 
 		//23.2.4.1 construct/copy/destroy
-		//explicit가 뭐였지? -> 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
+		//explicit: 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
 		//explicit	vector(const Allocator& = Allocator())
 		explicit	vector(const allocator_type& a = allocator_type())
-		: ft_allocator(), ft_start(0), ft_finish(0), ft_end_storage(0){};
-		explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator());
+			: ft_alloc(a), ft_start(0), ft_finish(0), ft_end_storage(0)
+			{};
+		//왜 allocator로 alloc을 따로 하는거지?
+		//explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator())
+		explicit	vector(size_type n, const T& value = T(), const allocator_type& a = Allocator())
+			: _alloc(a), _start(0), _finish(0), _end_storage(0)
+			{
+				_start = _alloc.allocate( n );
+				_end_storage = _start + n;
+				_finish = _start;
+				while (n--)
+				{
+					_alloc.construct( _finish, value);
+					_finish++;
+				}
+			};
+
 		template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 		vector(const vector<T, Allocator>& x);
@@ -103,10 +119,10 @@ namespace ft
 		void					swap(vector<T, Allocator>&);
 		void					clear();
 	protected:
-		allocator_type			ft_allocator;
-		T*						ft_start;
-		T*						ft_finish;
-		T*						ft_end_storage;
+		allocator_type			_alloc;
+		T*						_start;
+		T*						_finish;
+		T*						_end_storage;
 	};
 
 }
