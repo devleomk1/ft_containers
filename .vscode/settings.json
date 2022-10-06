@@ -67,6 +67,7 @@
 		"variant": "cpp",
 		"__undef_macros": "cpp",
 		"memory_resource": "cpp",
-		"functional": "cpp"
+		"functional": "cpp",
+		"__memory": "cpp"
 	}
 }
