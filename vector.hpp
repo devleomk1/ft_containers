@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/06 20:50:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:41:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
  */
 namespace ft
 {
+	//왜 allocator로 alloc을 따로 하는거지?
 	//template <class T, class Allocator = std::allocator<T> -> 내가 만든 얼록케이터라는것을 확실하게 하기 위해서
 	template <class T, class Alloc = std::allocator<T> >			//왜 Allocator가 아니라 Alloc으로 하는 걸까?
 	class vector
@@ -49,12 +50,9 @@ namespace ft
 
 		//23.2.4.1 construct/copy/destroy
 		//explicit: 생성자 앞에 explicit 키워드를 붙여주면 변환 생성자의 무작위 호출을 막고 명확성을 높여준다.
-		//explicit	vector(const Allocator& = Allocator())
 		explicit	vector(const allocator_type& alloc = allocator_type())
 			: _alloc(alloc), _start(0), _finish(0), _end_storage(0)
 			{};
-		//왜 allocator로 alloc을 따로 하는거지?
-		//explicit	vector(size_type n, const T& value = T(), const Allocator& = Allocator())
 		explicit	vector(size_type n, const T& value = T(), const allocator_type& alloc = Allocator())
 			: _alloc(alloc), _start(0), _finish(0), _end_storage(0)
 			{
