@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/08 21:41:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:43:51 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ namespace ft
 			}
 			_finish = i;
 		};
+
 		~vector()
 		{
 			iterator i = _start;
@@ -318,21 +319,60 @@ namespace ft
 			}
 
 		};
+
+		/**
+		 * @brief 마지막 원소를 only 삭제만
+		 *
+		 */
 		void					pop_back(){
 			_finish--;
 			_alloc.destroy(_finish);
 		};
-		iterator				insert(iterator position, const T& x);
+
+		iterator				insert(iterator position, const T& x){
+
+		};
 		void					insert(iterator position, size_type n, const T& x);
 		template <class InputIterator>
 			void				insert(iterator position, InputIterator first, InputIterator last);
-		iterator				erase(iterator position);
-		iterator				erase(iterator first, iterator last);
-		void					swap(vector<T, Allocator>&){
+
+		/**
+		 * @brief position 위치의 원소 하나를 지우고 지워진 원소의 다음 위치를 가르킨다.
+		 *
+		 * @param position  : 지울 원소 위치
+		 * @return iterator : 지워진 원소의 다음 위치
+		 */
+		iterator				erase(iterator position){
+			std::copy(position + 1, end(), position);
+			_finish--;
+			_alloc.destroy(_finish);	//소멸자 호출
+			return ( position );
+		};
+
+		/**
+		 * @brief first와 last사이의 모든 원소를 지운다.
+		 *
+		 * @param first : 시작 원소
+		 * @param last  : 끝 원소
+		 * @return iterator
+		 */
+		iterator				erase(iterator first, iterator last){
+			iterator it(std::copy(last, end(), first));
+			while (it != end())
+			{
+				_alloc.destroy(it);
+				it++;
+			}
+			_finish = _finish - (last - first);
+			return ( first );
+		};
+
+		void					swap(vector<T, Alloc>&){
 			std::swap(_start, x._start);
 			std::swap(_finish, x._finish);
 			std::swap(_end_storage, x._end_storage);
 		};
+
 		void					clear(){
 			erase(begin(), end());
 		};
