@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:36:35 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/09 17:36:36 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:46:06 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main()
 
 	std::vector<int>	vec;
 
+
 	for (size_t i = 1; i <= 100; i++)
 		vec.push_back(i);
 	std::cout << "[1] [2] ... [100] [0] ... \n";
@@ -51,6 +52,16 @@ int main()
 	std::cout << " vec[3]\t\t\t: " << vec[3] << "\n";
 	vec.reserve(200);
 	std::cout << " vec." YELLOW "reserve" RESET "(200)\t: capacity() = " << vec.capacity() << "\n";
+
+	std::vector<int>::iterator	it;
+	vec.insert(vec.at(4), 3, 300);
+
+	std::vector<int>	insert_vec;
+	insert_vec.push_back(-1);
+	insert_vec.push_back(-2);
+	insert_vec.push_back(-3);
+	insert_vec.push_back(-4);
+	insert_vec.push_back(-5);
 
 	return (0);
 }
