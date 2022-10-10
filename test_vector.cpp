@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:36:35 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/09 18:46:06 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:50:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int main()
 	std::cout << " vec." YELLOW "front" RESET "()\t\t: " << vec.front() << "\n";
 	std::cout << " vec." YELLOW "back" RESET "()\t\t: " << vec.back() << "\n";
 	std::cout << " vec." YELLOW "at" RESET "(3)\t\t: " << vec.at(3) << "\n";
-	std::cout << " vec[3]\t\t\t: " << vec[3] << "\n";
+	std::cout << " vec[999]\t\t\t: " << vec[9999999999999999] << "\n";
 	vec.reserve(200);
 	std::cout << " vec." YELLOW "reserve" RESET "(200)\t: capacity() = " << vec.capacity() << "\n";
 
-	std::vector<int>::iterator	it;
-	vec.insert(vec.at(4), 3, 300);
+	//std::vector<int>::iterator	it;
+	//vec.insert(vec.at(4), 3, 300);
 
 	std::vector<int>	insert_vec;
 	insert_vec.push_back(-1);
