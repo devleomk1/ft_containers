@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/09 18:43:51 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:15:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ namespace ft
 		typedef typename	allocate_type::const_reference		const_reference;
 		typedef typename	allocate_type::pointer				pointer;
 		typedef typename	allocate_type::const_pointer		const_pointer;
-	//ISO 14882_1998 23.1 implementation-defined ==============================
+	// ISO 14882_1998 - 23.1 implementation-defined ============================
 		typedef pointer											iterator;
 		typedef const_pointer									const_iterator;
 		typedef size_t											size_type;
 		typedef ptrdiff_t										difference_type;
-	//define end ==============================================================
+	// define end ==============================================================
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
@@ -82,8 +82,8 @@ namespace ft
 			while (n--)
 			{
 				_alloc.construct( i, *j );	//이건 왜 *j 일까?
-				i++;
 				j++;
+				i++;
 			}
 			_finish = i;
 		};
@@ -152,13 +152,13 @@ namespace ft
 			return (*this);
 		};
 
-		//need enable_if here! =========================================
+	//need enable_if here! =========================================
 		template <class InputIterator>
 			void assign(InputIterator first, InputIterator last)
 			{
 
 			};
-		//==============================================================
+	//==============================================================
 		void assign(size_type n, const T& u)
 		{
 			erase(begin(), end());
@@ -255,9 +255,11 @@ namespace ft
 
 		//element access
 		reference				operator[](size_type n){
+			//NO RANGE CHECK REQUIRED
 			return ( *(begin() + n) );
 		};
 		const_reference			operator[](size_type n) const{
+			//NO RANGE CHECK REQUIRED
 			return ( *(begin() + n) );
 		};
 		reference				at(size_type n){
@@ -269,7 +271,7 @@ namespace ft
 			return ( (*this)[n] );
 		};
 		reference				front(){
-			return ( *begin() );		//왜 주소를 줄까?
+			return ( *begin() );
 		};
 		const_reference			front() const{
 			return ( *begin() );
@@ -326,15 +328,190 @@ namespace ft
 		 */
 		void					pop_back(){
 			_finish--;
-			_alloc.destroy(_finish);
+			_alloc.destroy(_finish);	//들어 있는 데이터를 삭제
 		};
 
+		/**
+		 * @brief 삽입
+		 *
+		 * @param position	: 삽입할 위치
+		 * @param x			: 삽입할 친구
+		 * @return iterator
+		 */
 		iterator				insert(iterator position, const T& x){
+			size_type n	= position - begin();
+			if (_finish != _end_storage)
+			{
+				if (position == end())	//end()에 삽입할 때
+				{
+					_alloc.construct(_finish, x);
+					_finish++;
+				}
+				else //( position != end() )
+				{
+					//WHY?
+					_alloc.construct(_finish, *(_finish -1));
+					_finish++;
+					value_type	x_copy = x;
+					iterator	it_i = _finish - 2;
+					iterator	it_j = _finish - 1;
+					while (it_i != position)
+					{
+						*--it_j = *--it_i;	//WHY?
+					}
+					*position = x_copy;		//x_copy를 하는 의미가 있는가?
+				}
+			}
+			else	// ( _finish == _end_storage )
+			{
+				const size_type	old_size = size();
+				const size_type	len = old_size != 0 ? 2 * old_size : 1;	//pls change if
+				iterator		new_start(_alloc.allocate(len));
+				iterator		new_finish(new_start);
+				iterator		it_i = new_start;
+				iterator		it_j = _start;
+
+				while (it_j != _finish)
+				{
+					_alloc.construct(i, *j);
+					it_i++;
+					it_j++;
+				}
+				new_finish = it_i;
+
+				it_i = _start;
+				while (it_i != _finish)
+				{
+					_alloc.destroy(it_i);
+					it_i++;
+				}
+
+				_alloc.deallocate(_start, _end_storage - _start);
+				_start = new_start;
+				_finish = new_finish;
+				_end_storage = new_start + len;
+			}
+			return ( begin() + n );
 
 		};
-		void					insert(iterator position, size_type n, const T& x);
+
+		void					insert(iterator position, size_type n, const T& x)
+		{
+			if ( n == 0 )
+			{
+				return ;
+			}
+			if ( size_type(_end_storage - _finish) >= n )
+			{
+				const size_type	elem_after = end() - position;	//why elem_after?
+				iterator		old_finish(_finish);
+
+				if ( elem_after > n )
+				{
+					iterator	it_i = _finish;
+					iterator	it_j = _finish - n;
+					while (it_j != _finish)
+					{
+						_alloc.construct(i, *j);
+						i++;
+						j++;
+					}
+					_finish += n;
+					it_i = old_finish - n;
+					it_j = old_finish;
+					while (it != position)
+					{
+						*--j = *--i;
+					}
+					while (n > 0)
+					{
+						value_type x_copy = x;
+						*position = x_copy;
+						n--;
+						position++;
+					}
+
+
+				}
+				else /* ( elem_after <= n ) */
+				{
+					iterator	it_i = _finish;
+					n -= elem_after;
+					while ( n > 0 )
+					{
+						value_type x_copy = x;
+						_alloc.construct(it_i, x_copy);
+
+						it_i++;
+						n--;
+					}
+					iterator	it_j = position;
+					while (it_j != old_finish)
+					{
+						_alloc.construct(i, *j);
+						i++;
+						j++;
+					}
+					_finish = it_i;
+					while (position != old_finish)
+					{
+						value_type x_copy = x;
+						*position = x_copy;
+						position++;
+					}
+				}
+			}
+			else // ( size_type(_end_storage - _finish) < n )
+			{
+				const size_type	old_size = size();
+				const size_type	len = old_size + std::max(old_size, n);
+				iterator		new_start(_allocator.allocate(len));
+				iterator		new_finish(new_start);
+				iterator		it_i = new_start;
+				iterator		it_j = _start;
+				while ( it_j != position )
+				{
+					_alloc.construct(it_i, *it_j);
+					it_i++;
+					it_j++;
+				}
+				new_finish = it_i;		//이거 마지막에 하나만 써도 괜찮은거 아닌가?
+				while ( n > 0 )
+				{
+					_alloc.construct(it_i, x);
+					it_i++;
+					n--;
+				}
+				new_finish = it_i;		//이거 마지막에 하나만 써도 괜찮은거 아닌가?
+				it_j = position;
+				while ( it_j != _finish )
+				{
+					_alloc.construct(it_i, *it_j);
+					it_i++;
+					it_j++;
+				}
+				new_finish = it_i;		//이거 마지막에 하나만 써도 괜찮은거 아닌가?
+				iterator		it_k = _start;
+				while (it_k != _finish)
+				{
+					_alloc.destroy(it_k);
+					it_k++;
+				}
+				_alloc.deallocate(_start, _end_storage - _start);
+				_start = new_start;
+				_finish = new_finish;
+				_end_storage = new_start + len;
+			}
+
+		};
+
+	//need enable_if here! =========================================
 		template <class InputIterator>
-			void				insert(iterator position, InputIterator first, InputIterator last);
+			void				insert(iterator position, InputIterator first, InputIterator last)
+			{
+
+			};
+	//==============================================================
 
 		/**
 		 * @brief position 위치의 원소 하나를 지우고 지워진 원소의 다음 위치를 가르킨다.
@@ -367,12 +544,20 @@ namespace ft
 			return ( first );
 		};
 
+		/**
+		 * @brief swap!
+		 *
+		 */
 		void					swap(vector<T, Alloc>&){
 			std::swap(_start, x._start);
 			std::swap(_finish, x._finish);
 			std::swap(_end_storage, x._end_storage);
 		};
 
+		/**
+		 * @brief 모든 원소 삭 to the 제
+		 *
+		 */
 		void					clear(){
 			erase(begin(), end());
 		};
