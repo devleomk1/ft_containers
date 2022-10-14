@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/04 18:12:32 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:52:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ template <class Iterator>
 		explicit reverse_iterator(Iterator x);
 		template <class U> reverse_iterator(const reverse_iterator<U>& u);
 
-		Iterator base() const	{ return(current) };
+		Iterator base() const	{ return(current); };
 		reference	operator*() const{
 			Iterator tmp = current;
 			return *--tmp;
@@ -58,7 +58,7 @@ template <class Iterator>
 
 		reverse_iterator&	operator++(){
 			--current;
-			return (*this)
+			return (*this);
 		};
 		reverse_iterator	operator++(int){
 			reverse_iterator tmp = *this;
@@ -113,7 +113,7 @@ template <class Iterator>
 			const reverse_iterator<Iterator>& x,
 			const reverse_iterator<Iterator>& y)
 			{
-				return (x.current != y.current)
+				return (x.current != y.current);
 			};
 	template <class Iterator>
 		bool operator>(

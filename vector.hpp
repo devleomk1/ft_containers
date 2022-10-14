@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/10 20:15:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:58:17 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ namespace ft
 		typedef T												value_type;
 		typedef typename	Alloc::template rebind<T>::other	allocator_type; //안써도됌 ㅋㅋㅋ크루 삥뽕 근데 설명은 해야함.. 젠장.
 		//typedef Allocator								allocator_type;
-		typedef typename	allocate_type::reference			reference;
-		typedef typename	allocate_type::const_reference		const_reference;
-		typedef typename	allocate_type::pointer				pointer;
-		typedef typename	allocate_type::const_pointer		const_pointer;
+		typedef typename	allocator_type::reference			reference;
+		typedef typename	allocator_type::const_reference		const_reference;
+		typedef typename	allocator_type::pointer				pointer;
+		typedef typename	allocator_type::const_pointer		const_pointer;
 	// ISO 14882_1998 - 23.1 implementation-defined ============================
 		typedef pointer											iterator;
 		typedef const_pointer									const_iterator;
@@ -53,7 +53,7 @@ namespace ft
 		explicit	vector(const allocator_type& alloc = allocator_type())
 			: _alloc(alloc), _start(0), _finish(0), _end_storage(0)
 			{};
-		explicit	vector(size_type n, const T& value = T(), const allocator_type& alloc = Allocator())
+		explicit	vector(size_type n, const T& value = T(), const allocator_type& alloc = allocator_type())
 			: _alloc(alloc), _start(0), _finish(0), _end_storage(0)
 			{
 				_start = _alloc.allocate( n );
@@ -68,8 +68,8 @@ namespace ft
 			};
 
 		//need enable_if here! =========================================
-		template <class InputIterator>
-			vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
+		//template <class InputIterator>
+			//vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 		//==============================================================
 
 		vector(const vector<T, Alloc>& x) : _alloc(x._alloc)
@@ -96,7 +96,7 @@ namespace ft
 				_alloc.destroy(i);
 				i++;
 			}
-			_allocator.deallocate(_start, _end_storage - _start);
+			_alloc.deallocate(_start, _end_storage - _start);
 		};
 		vector<T, Alloc>& operator=(const vector<T, Alloc>& x)
 		{
@@ -115,7 +115,7 @@ namespace ft
 						i++;
 						j++;
 					}
-					iterator it = _start
+					iterator it = _start;
 					while (it != _finish)
 					{
 						_alloc.destory(it);
@@ -206,12 +206,12 @@ namespace ft
 		size_type				max_size() const{
 			return ( _alloc.max_size() );
 		};
-		void					resize(size_type sz, value_type c = value_type()){
-			if (n > size()){
-				insert(end(), sz - size(), c);
+		void					resize(size_type n, value_type v = value_type()){
+			if ( n > size() ){
+				insert(end(), n - size(), v);
 			}
 			else if (n < size()){
-				erase(begin() + sz, end());
+				erase(begin() + n, end());
 			}
 			else{
 				/* Same, Nothing to do*/
@@ -219,7 +219,7 @@ namespace ft
 		};
 		size_type				capacity() const
 		{
-			return ( size_type(const_iterator(_end_storage) - begin() );
+			return ( size_type(const_iterator(_end_storage) - begin()) );
 		};
 		bool					empty() const
 		{
@@ -373,7 +373,7 @@ namespace ft
 
 				while (it_j != _finish)
 				{
-					_alloc.construct(i, *j);
+					_alloc.construct(it_i, *it_j);
 					it_i++;
 					it_j++;
 				}
@@ -412,16 +412,16 @@ namespace ft
 					iterator	it_j = _finish - n;
 					while (it_j != _finish)
 					{
-						_alloc.construct(i, *j);
-						i++;
-						j++;
+						_alloc.construct(it_i, *it_j);
+						it_i++;
+						it_j++;
 					}
 					_finish += n;
 					it_i = old_finish - n;
 					it_j = old_finish;
-					while (it != position)
+					while (it_i != position)
 					{
-						*--j = *--i;
+						*--it_j = *--it_i;
 					}
 					while (n > 0)
 					{
@@ -448,9 +448,9 @@ namespace ft
 					iterator	it_j = position;
 					while (it_j != old_finish)
 					{
-						_alloc.construct(i, *j);
-						i++;
-						j++;
+						_alloc.construct(it_i, *it_j);
+						it_i++;
+						it_j++;
 					}
 					_finish = it_i;
 					while (position != old_finish)
@@ -465,7 +465,7 @@ namespace ft
 			{
 				const size_type	old_size = size();
 				const size_type	len = old_size + std::max(old_size, n);
-				iterator		new_start(_allocator.allocate(len));
+				iterator		new_start(_alloc.allocate(len));
 				iterator		new_finish(new_start);
 				iterator		it_i = new_start;
 				iterator		it_j = _start;
@@ -548,7 +548,7 @@ namespace ft
 		 * @brief swap!
 		 *
 		 */
-		void					swap(vector<T, Alloc>&){
+		void					swap(vector<T, Alloc>& x){
 			std::swap(_start, x._start);
 			std::swap(_finish, x._finish);
 			std::swap(_end_storage, x._end_storage);
