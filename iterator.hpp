@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/14 18:52:37 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:16:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ template <class Iterator>
 		typedef typename iterator_traits<Iterator>::pointer			pointer;
 
 		reverse_iterator();
-		explicit reverse_iterator(Iterator x);
-		template <class U> reverse_iterator(const reverse_iterator<U>& u);
+		explicit reverse_iterator(Iterator x) : current(x) {};
+		template <class U> reverse_iterator(const reverse_iterator<U>& u) : current(u.base) {};
 
-		Iterator base() const	{ return(current); };
+		Iterator	base() const	{ return(current); };
 		reference	operator*() const{
 			Iterator tmp = current;
 			return *--tmp;
