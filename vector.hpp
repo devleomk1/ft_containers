@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/14 18:58:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:42:53 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//vector<bool> 전문화를 수행할 필요가 없습니다. ->
+// 💡 vector<bool> 전문화를 수행할 필요가 없습니다.
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
@@ -19,10 +19,7 @@
 # include <stdexcept>
 # include "iterator_traits.hpp"
 # include "iterator.hpp"
-/**
- * @brief
- *
- */
+
 namespace ft
 {
 	//왜 allocator로 alloc을 따로 하는거지?
@@ -577,6 +574,11 @@ namespace ft
 		}
 	};
 
+	/**
+	 * @brief Non-member function overloads
+	 * - relational operators
+	 * - swap
+	 */
 }
 
 #endif

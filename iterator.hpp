@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/14 19:16:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:16:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ template <class Iterator>
 		typedef typename iterator_traits<Iterator>::pointer			pointer;
 
 		reverse_iterator();
-		explicit reverse_iterator(Iterator x) : current(x) {};
-		template <class U> reverse_iterator(const reverse_iterator<U>& u) : current(u.base) {};
+		explicit reverse_iterator(Iterator x)
+		: current(x) {};
+		template <class U> reverse_iterator(const reverse_iterator<U>& u)
+		: current(u.base) {};
 
 		Iterator	base() const	{ return(current); };
 		reference	operator*() const{
@@ -151,22 +153,19 @@ template <class Iterator>
 				return (x.current - n);
 			};
 
-	////tag는 머시당가?
-	//struct input_iterator_tag {};
-	//struct output_iterator_tag {};
-	//struct forward_iterator_tag: public input_iterator_tag {};
-	//struct bidirectional_iterator_tag: public forward_iterator_tag {};
-	//struct random_access_iterator_tag: public bidirectional_iterator_tag {};
-
 	//24.3.4 iterator operations:
+	// advance와 distance는 필요 없는가??
 	template <class InputIterator, class Distance>
 		void advance(InputIterator& i, Distance n){
-
+				//????
+				//없어서 안했음
 		};
 	template <class InputIterator>
 		typename iterator_traits<InputIterator>::difference_type
 		distance(InputIterator first, InputIterator last){
-
+				//????
+				//이건 쓰긴함
+				// 두 이터레이터 사이의 길이 연산하는거
 		};
 
 
