@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/16 15:31:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:44:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdexcept>
 # include "iterator_traits.hpp"
 # include "iterator.hpp"
+# include "algorithm.hpp"
 
 namespace ft
 {
@@ -586,8 +587,7 @@ namespace ft
 	 */
 	template <class T, class Alloc>
 		bool operator== (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			//need ft::equl
-			return ();
+			return ( a.size() == b.size() && ft::equal(a.begin(), a.end(), b.begin()) );
 		};
 	template <class T, class Alloc>
 		bool operator!= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
@@ -596,7 +596,7 @@ namespace ft
 	template <class T, class Alloc>
 		bool operator<  (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
 			//need ft::lexicographical_compare
-			return ();
+			return ( ft::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end()) );
 		};
 	template <class T, class Alloc>
 		bool operator<= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
