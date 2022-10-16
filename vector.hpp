@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/14 19:42:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:31:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -577,8 +577,44 @@ namespace ft
 	/**
 	 * @brief Non-member function overloads
 	 * - relational operators
+	 * 		operation	|	equivalent operation
+	 *		a!=b		|	!(a==b)
+	 *		a>b			|	b<a
+	 *		a<=b		|	!(b<a)
+	 *		a>=b		|	!(a<b)
 	 * - swap
 	 */
+	template <class T, class Alloc>
+		bool operator== (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
+			//need ft::equl
+			return ();
+		};
+	template <class T, class Alloc>
+		bool operator!= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
+			return ( !(a == b) );
+		};
+	template <class T, class Alloc>
+		bool operator<  (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
+			//need ft::lexicographical_compare
+			return ();
+		};
+	template <class T, class Alloc>
+		bool operator<= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
+			return( !(b < a) );
+		};
+	template <class T, class Alloc>
+		bool operator>  (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
+			return ( b < a );
+		};
+	template <class T, class Alloc>
+		bool operator>= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
+			return ( !(a < b) );
+		};
+
+	template <class T, class Alloc>
+		void swap (vector<T, Alloc>& a, vector<T, Alloc>& b){
+			a.swap(b);
+		}
 }
 
 #endif
