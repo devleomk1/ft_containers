@@ -68,6 +68,9 @@
 		"__undef_macros": "cpp",
 		"memory_resource": "cpp",
 		"functional": "cpp",
-		"__memory": "cpp"
+		"__memory": "cpp",
+		"__functional_base": "cpp",
+		"bit": "cpp",
+		"utility": "cpp"
 	}
 }
