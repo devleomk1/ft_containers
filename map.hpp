@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/17 21:02:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/18 23:54:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 namespace ft
 {
-												//less가 뭐용?
+	// 1. tree를 Map에 어떻게 붙여야 할까?
+	// 2. less가 뭐용?
 	template <class Key, class T, class Compare = less<Key>, class Allocator = std::allocator<pair<const Key, T>>>
 	class map
 	{
