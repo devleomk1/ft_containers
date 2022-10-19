@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:19:58 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/19 14:26:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:10:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@
 namespace ft
 {
 //ISO+IEC p.358
-
+/**
+ * @brief
+ *
+ * @tparam T1
+ * @tparam T2
+ * @link (https://cplusplus.com/reference/utility/pair/?kw=pair)
+ */
 template <class T1, class T2>
 	struct pair {
 		typedef T1 first_type;
@@ -25,12 +31,53 @@ template <class T1, class T2>
 		T1 first;
 		T2 second;
 
-		pair();
-		pair(const T1& x, const T2& y);
-		template<class U, class V> pair(const pair<U, V> &p);
+		pair() : first(T1()), second(T2()) {};
+		pair(const T1& x, const T2& y) : first(x), second(y) {};
+		template<class U, class V>
+			pair(const pair<U, V> &p) : first(p.first), second(p.second) {};
+
 	};
 
-pair();
+	/**
+	 * @brief
+	 * - relational operators
+	 * 		operation	|	equivalent operation
+	 *		x!=y		|	!(x==y)
+	 *		x>y			|	y<x
+	 *		x<=y		|	!(y<x)
+	 *		x>=y		|	!(x<y)
+	 */
+	template <class T1, class T2>
+		bool operator== (const pair<T1,T2>& x, const pair<T1,T2>& y){
+			return ( x.first == y.first && x.second == y.second );
+		};
+	template <class T1, class T2>
+		bool operator!= (const pair<T1,T2>& x, const pair<T1,T2>& y){
+			return ( !(x == y) );
+		};
+	template <class T1, class T2>
+		bool operator<  (const pair<T1,T2>& x, const pair<T1,T2>& y){
+			return ( x.first < y.first || (!(y.first < x.first) && x.second < y.second) );
+		};
+	template <class T1, class T2>
+		bool operator<= (const pair<T1,T2>& x, const pair<T1,T2>& y){
+			return ( !(y < x) );
+		};
+	template <class T1, class T2>
+		bool operator>  (const pair<T1,T2>& x, const pair<T1,T2>& y){
+			return ( y < x );
+		};
+	template <class T1, class T2>
+		bool operator>= (const pair<T1,T2>& x, const pair<T1,T2>& y){
+			return ( !(x < y) );
+		};
+
+	template <class T1, class T2>
+		//pair<T1,T2> make_pair(const T1& x, const T2& y){
+		pair<T1,T2> make_pair(const T1 x, const T2 y){
+			return ( pair<T1,T2>(x, y); );
+		};
+
 }
 
 #endif
