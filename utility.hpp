@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:19:58 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/19 16:10:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:31:35 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ template <class T1, class T2>
 		};
 
 	template <class T1, class T2>
-		//pair<T1,T2> make_pair(const T1& x, const T2& y){
+		//pair<T1,T2> make_pair(const T1& x, const T2& y){ 이거 Head에는 &있는데 왜 안붙일까?
 		pair<T1,T2> make_pair(const T1 x, const T2 y){
 			return ( pair<T1,T2>(x, y); );
 		};

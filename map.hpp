@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/18 23:54:31 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:59:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 	// 1. tree를 Map에 어떻게 붙여야 할까?
-	// 2. less가 뭐용?
+	// 2. less가 뭐용? : Key의 쌍을 개를 비교하는데 사용함
 	template <class Key, class T, class Compare = less<Key>, class Allocator = std::allocator<pair<const Key, T>>>
 	class map
 	{
@@ -41,7 +41,7 @@ namespace ft
 			typedef std::reverse_iterator<const_iterator>	const_reverse_iterartor;
 
 			class value_compare : public binary_function<value_type, value_type, bool> {
-				friend class map; //친구가 뭔데 씹덕아
+				friend class map; //부모/자식 관계가 아닌 외부 클래스를 private까지 접근 가능하도록 할 수 있음 개꿀
 				protected:
 					Compare comp;
 					value_compare(Compare c) : comp(c) {}
