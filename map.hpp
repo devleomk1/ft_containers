@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/19 13:59:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:52:30 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include <memory>
 # include <stdexcept>
-
+# include "utility.hpp" //for ft::pair
 namespace ft
 {
 	// 1. tree를 Map에 어떻게 붙여야 할까?
-	// 2. less가 뭐용? : Key의 쌍을 개를 비교하는데 사용함
-	template <class Key, class T, class Compare = less<Key>, class Allocator = std::allocator<pair<const Key, T>>>
+	// 2. less가 뭐용? : Key의 쌍을 개를 비교하는데 사용함, 과제에서 요구하지 않기 때문에 직접 만들 필요 없음.
+	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T>>>
 	class map
 	{
 		public:
@@ -115,9 +115,10 @@ namespace ft
 			const_iterator		find(const key_type& x) const;
 			size_type			count(const key_type& x) const;
 
-			iterator			lower_bound(const key_type& x);
+			//bound는 뭐하는 함수일까? ->
+			iterator			lower_bound(const key_type& x);			//이상 -> 일단 이거는 한번 찾아보자
 			const_iterator		lower_bound(const key_type& x) const;
-			iterator			upper_bound(const key_type& x);
+			iterator			upper_bound(const key_type& x);			//초과
 			const_iterator		upper_bound(const key_type& x) const;
 
 			pair<iterator, iterator>
