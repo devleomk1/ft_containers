@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/19 20:52:30 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/20 23:35:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ namespace ft
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T>>>
 	class map
 	{
+		private:
+			struct node
+			{
+				ft::pair<const Key, T>	value;
+				size_t					height;
+				node*					parent;
+				node*					left;
+				node*					right;
+			};
+
 		public:
 			typedef Key										key_type;
 			typedef T										mapped_type;
@@ -31,6 +41,7 @@ namespace ft
 			typedef Allocator								allocator_type;
 			typedef typename Allocator::reference			reference;
 			typedef typename Allocator::const_reference		const_reference;
+			// 여기 수정해야함
 			typedef implementation defined					iterator;
 			typedef implementation defined					const_iterator;
 			typedef implementation defined					size_type;
