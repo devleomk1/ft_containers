@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/16 20:44:25 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:39:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ namespace ft
 			};
 
 		//need enable_if here! =========================================
+		//이거 왜 주석 처리했지?
 		//template <class InputIterator>
 			//vector(InputIterator first, InputIterator last, const Allocator& = Allocator());
 		//==============================================================

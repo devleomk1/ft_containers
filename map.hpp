@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/20 23:35:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:31:38 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "utility.hpp" //for ft::pair
 namespace ft
 {
+	// AVL 트리는 삭제/삽입하는 곳을 기준으로 위로 올라가면서 회전한다!
 	// 1. tree를 Map에 어떻게 붙여야 할까?
 	// 2. less가 뭐용? : Key의 쌍을 개를 비교하는데 사용함, 과제에서 요구하지 않기 때문에 직접 만들 필요 없음.
 	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T>>>
