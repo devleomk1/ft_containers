@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/21 14:31:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/22 17:32:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ namespace ft
 	// AVL 트리는 삭제/삽입하는 곳을 기준으로 위로 올라가면서 회전한다!
 	// 1. tree를 Map에 어떻게 붙여야 할까?
 	// 2. less가 뭐용? : Key의 쌍을 개를 비교하는데 사용함, 과제에서 요구하지 않기 때문에 직접 만들 필요 없음.
-	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T>>>
+	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T>>>
 	class map
 	{
 		private:
@@ -33,22 +33,82 @@ namespace ft
 				node*					left;
 				node*					right;
 			};
+		private:
+			node*			_top;
+			node*			_new_node;
+			node*			_last_node;
+			size_type		_size;
+			allocator_type	_alloc;
+			key_compare		_comp;
+			allocNode		_alloc_node;
+
+			/**
+			 * @brief
+			 * AVL Tree에 필요한게 뭘가
+			 *
+			 */
+
+			insert_node();
+			delete_node();
+
+			size_t get_height(node* node)
+			{
+				if (node == NULL)
+					return ( 0 );
+				return ( node->height );
+			};
+
+			int get_balance_factor(node* node)
+			{
+				if (node == NULL)
+					return ( 0 );
+				return ( get_height(node->left) - get_height(node->right) );
+			};
+
+
+			rotate_right();
+			rotate_left();
+			find_node();
+			balance();
+			node* find_node_min(node* node)
+			{
+				if (node->left == NULL)
+					return ( node );
+				return ( find_node_min(node->left) );
+			};
+
+			node* find_node_max(node* node)
+			{
+				if (node->right == NULL)
+					return ( node );
+				return ( find_node_min(node->right) );
+			};
+
+			delete_min();	//이거 이름 이상하다
+			void dealloc_node(node* node)
+			{
+				_alloc_pair.destroy(&node->value);
+				_alloc_node.deallocate(node, 1);
+			};
+
+			print_int();
+			print_string();
 
 		public:
 			typedef Key										key_type;
 			typedef T										mapped_type;
 			typedef pair<const Key, T>						value_type;
 			typedef Compare									key_compare;
-			typedef Allocator								allocator_type;
-			typedef typename Allocator::reference			reference;
-			typedef typename Allocator::const_reference		const_reference;
+			typedef Alloc								allocator_type;
+			typedef typename Alloc::reference			reference;
+			typedef typename Alloc::const_reference		const_reference;
 			// 여기 수정해야함
-			typedef implementation defined					iterator;
-			typedef implementation defined					const_iterator;
-			typedef implementation defined					size_type;
-			typedef implementation defined					difference_type;
-			typedef typename Allocator::pointer				pointer;
-			typedef typename Allocator::const_pointer		const_pointer;
+			typedef ft::bidirectional_iterator<value_type, Compare, node>					iterator;
+			typedef ft::bidirectional_iterator<const value_type, Compare, node>					const_iterator;
+			typedef size_t					size_type;
+			typedef ptrdiff_t					difference_type;
+			typedef typename Alloc::pointer				pointer;
+			typedef typename Alloc::const_pointer		const_pointer;
 			typedef std::reverse_iterator<iterator>			reverse_iterator;
 			typedef std::reverse_iterator<const_iterator>	const_reverse_iterartor;
 

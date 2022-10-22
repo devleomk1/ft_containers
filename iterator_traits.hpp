@@ -6,12 +6,14 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:47:23 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/04 15:37:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/22 18:30:38 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_TRAITS_HPP
 # define ITERATOR_TRAITS_HPP
+
+# include <cstddef>
 
 namespace ft
 {
