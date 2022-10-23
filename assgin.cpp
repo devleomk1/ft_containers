@@ -39,11 +39,11 @@ int		main(void)
 	std::cout << "PASS1" << std::endl;
 
 	vct_three.assign(vct.begin(), vct.end());
+	std::cout << "PASS2" << std::endl;
 	vct.assign(vct_two.begin(), vct_two.end());
 	vct_two.assign(2, 42);
 	vct_four.assign(4, 21);
 
-	std::cout << "PASS2" << std::endl;
 	std::cout << "\t### After assign(): ###" << std::endl;
 
 	//printSize(vct);

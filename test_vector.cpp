@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:36:35 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/14 19:08:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:26:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void print_vector(std::vector<int> vec)
 int main()
 {
 
-	ft::vector<int>	vec;
+	std::vector<int>	vec;
 
 	for (size_t i = 1; i <= 100; i++)
 		vec.push_back(i);
@@ -44,11 +44,19 @@ int main()
 	std::cout << "*vec." YELLOW "begin" RESET "()\t\t: " << *vec.begin() << "\n";
 	std::cout << "*vec." YELLOW "end" RESET "()\t\t: " << *vec.end() << "\n";
 	std::cout << "&vec." YELLOW "begin" RESET "()\t\t: " << &(*vec.begin()) << "\n";
+	std::cout << "&vec." YELLOW "rbegin의 주소" RESET "()\t\t: " << &(*vec.rbegin()) << "\n";
+	std::cout << "&vec." YELLOW "end의 주소" RESET "()\t\t: " << &(*vec.end()) << "\n";
+	std::cout << "&vec." YELLOW "--end의 주소" RESET "()\t\t: " << &(*--vec.end()) << "\n";
+	std::cout << "&vec." YELLOW "end의 값" RESET "()\t\t: " << (*vec.end()) << "\n";
+	std::cout << "&vec." YELLOW "rbegin의 값" RESET "()\t\t: " << (*vec.rbegin()) << "\n";
+	std::cout << "&vec." YELLOW "--end의 값" RESET "()\t\t: " << (*--vec.end()) << "\n";
+	//std::cout << " vec." YELLOW "at" RESET "(100)\t\t: " << vec.at(100) << "\n";
+	std::cout << " vec." YELLOW "at" RESET "(99)\t\t: " << vec.at(99) << "\n";
+	std::cout << "&vec." YELLOW "rbegin" RESET "()\t\t: " << (*vec.rbegin()) << "\n";
 	std::cout << "&vec." YELLOW "rend" RESET "()\t\t: " << &(*vec.rend()) << "\n";
 	std::cout << "&vec." YELLOW "end" RESET "()\t\t: " << &(*vec.end()) << "\n";
 	std::cout << " vec." YELLOW "front" RESET "()\t\t: " << vec.front() << "\n";
 	std::cout << " vec." YELLOW "back" RESET "()\t\t: " << vec.back() << "\n";
-	std::cout << " vec." YELLOW "at" RESET "(3)\t\t: " << vec.at(3) << "\n";
 	//std::cout << " vec[999]\t\t\t: " << vec[9999999999999999] << "\n";
 	//vec.reserve(200);
 	//std::cout << " vec." YELLOW "reserve" RESET "(200)\t: capacity() = " << vec.capacity() << "\n";
