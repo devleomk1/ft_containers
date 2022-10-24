@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:47:23 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/22 18:30:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:33:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 	{
 		typedef ptrdiff_t								difference_type;
 		typedef T										value_type;
-		typedef const T									pointer;
+		typedef const T*								pointer;
 		typedef const T&								reference;
 		typedef std::random_access_iterator_tag			iterator_category;
 	};
