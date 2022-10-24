@@ -71,6 +71,9 @@
 		"__memory": "cpp",
 		"__functional_base": "cpp",
 		"bit": "cpp",
-		"utility": "cpp"
+		"utility": "cpp",
+		"list": "cpp",
+		"queue": "cpp",
+		"set": "cpp"
 	}
 }

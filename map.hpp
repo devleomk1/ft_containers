@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/22 17:32:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/23 19:32:30 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 			size_type		_size;
 			allocator_type	_alloc;
 			key_compare		_comp;
-			allocNode		_alloc_node;
+			allocNode		_alloc_node;	//rebind
 
 			/**
 			 * @brief
@@ -65,11 +65,10 @@ namespace ft
 				return ( get_height(node->left) - get_height(node->right) );
 			};
 
-
 			rotate_right();
 			rotate_left();
 			find_node();
-			balance();
+			balance_tree();
 			node* find_node_min(node* node)
 			{
 				if (node->left == NULL)
@@ -95,22 +94,22 @@ namespace ft
 			print_string();
 
 		public:
-			typedef Key										key_type;
-			typedef T										mapped_type;
-			typedef pair<const Key, T>						value_type;
-			typedef Compare									key_compare;
-			typedef Alloc								allocator_type;
-			typedef typename Alloc::reference			reference;
-			typedef typename Alloc::const_reference		const_reference;
+			typedef Key																key_type;
+			typedef T																mapped_type;
+			typedef pair<const Key, T>												value_type;
+			typedef Compare															key_compare;
+			typedef Alloc															allocator_type;
+			typedef typename Alloc::reference										reference;
+			typedef typename Alloc::const_reference									const_reference;
 			// 여기 수정해야함
-			typedef ft::bidirectional_iterator<value_type, Compare, node>					iterator;
-			typedef ft::bidirectional_iterator<const value_type, Compare, node>					const_iterator;
-			typedef size_t					size_type;
-			typedef ptrdiff_t					difference_type;
-			typedef typename Alloc::pointer				pointer;
-			typedef typename Alloc::const_pointer		const_pointer;
-			typedef std::reverse_iterator<iterator>			reverse_iterator;
-			typedef std::reverse_iterator<const_iterator>	const_reverse_iterartor;
+			typedef ft::bidirectional_iterator<value_type, Compare, node>			iterator;
+			typedef ft::bidirectional_iterator<const value_type, Compare, node>		const_iterator;
+			typedef size_t															size_type;
+			typedef ptrdiff_t														difference_type;
+			typedef typename Alloc::pointer											pointer;
+			typedef typename Alloc::const_pointer									const_pointer;
+			typedef ft::reverse_iterator<iterator>									reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>							const_reverse_iterartor;
 
 			class value_compare : public binary_function<value_type, value_type, bool> {
 				friend class map; //부모/자식 관계가 아닌 외부 클래스를 private까지 접근 가능하도록 할 수 있음 개꿀
