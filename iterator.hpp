@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/24 13:43:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/24 19:13:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ template <class Iterator>
 			return (*this);
 		};
 		reference operator[](typename reverse_iterator<Iterator>::difference_type n) const{
-			return (current[-n-1]);	//왜에?
+			return (current[-n-1]);
 		};
 	};
 
@@ -154,7 +154,7 @@ template <class Iterator>
 				return (y.base() - x.base());
 			};
 	template <class Iterator>
-		reverse_iterator<Iterator> operator+(	//왜 -n 으로 인자를 받을까 y가 아니고?
+		reverse_iterator<Iterator> operator+(
 			typename reverse_iterator<Iterator>::difference_type n,
 			const reverse_iterator<Iterator>& x)
 			{

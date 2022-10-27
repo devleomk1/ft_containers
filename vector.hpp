@@ -352,7 +352,7 @@ public:
 
 	iterator erase(iterator position) {
 		std::copy(position + 1, end(), position);
-		--_finish;
+		_finish--;
 		_allocator.destroy(_finish);
 		return position;
 	}
@@ -422,7 +422,8 @@ operator<=(const vector<T,Alloc>& x, const vector<T,Alloc>& y)
 { return !(y < x); }
 
 template <class T, class Alloc>
-void swap(vector<T,Alloc>& x, vector<T,Alloc>& y) { x.swap(y); }
+void swap(vector<T,Alloc>& x, vector<T,Alloc>& y)
+{ x.swap(y); };
 
 } // namespace ft
 
