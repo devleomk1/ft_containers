@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/27 21:08:32 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/28 15:43:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <memory>
 # include <algorithm>
 # include <stdexcept>
-//# include "iterator_traits.hpp"
 # include "type_traits.hpp"
 # include "iterator.hpp"
 # include "algorithm.hpp"
@@ -61,13 +60,10 @@ namespace ft
 				_start = _alloc.allocate( n );
 				_end_storage = _start + n;
 				iterator i = _start;
-				//while (n--)
-				//{
-				//	_alloc.construct(i, value);
-				//	i++;
-				//}
-				for (; n > 0; --n, ++i) {
+				while (n--)
+				{
 					_alloc.construct(i, value);
+					i++;
 				}
 				_finish = i;
 			};
@@ -81,8 +77,11 @@ namespace ft
 				_start = _alloc.allocate(n);
 				_end_storage = _start + n;
 				pointer i = _start;
-				for (; first != last; ++i, ++first) {
+				while (first != last)
+				{
 					_alloc.construct(i, *first);
+					i++;
+					first++;
 				}
 				_finish = i;
 			};
@@ -94,28 +93,22 @@ namespace ft
 			_end_storage = _start + n;
 			iterator i = _start;
 			iterator j = x._start;
-			//while (n--)
-			//{
-			//	_alloc.construct( i, *j );	//이건 왜 *j 일까?
-			//	j++;
-			//	i++;
-			//}
-			for (;n > 0; --n, ++i, ++j) {
-				_alloc.construct(i, *j);
+			while (n--)
+			{
+				_alloc.construct( i, *j );	//이건 왜 *j 일까?
+				j++;
+				i++;
 			}
 			_finish = i;
 		};
 
 		~vector()
 		{
-			//iterator i = _start;
-			//while (i != _finish)
-			//{
-			//	_alloc.destroy(i);
-			//	i++;
-			//}
-			for (iterator i = _start; i != _finish; ++i) {
+			iterator i = _start;
+			while (i != _finish)
+			{
 				_alloc.destroy(i);
+				i++;
 			}
 			_alloc.deallocate(_start, _end_storage - _start);
 		};
@@ -130,23 +123,17 @@ namespace ft
 					pointer	new_start = _alloc.allocate(x_len);
 					pointer	i = new_start;
 					pointer j = const_cast<pointer>(x.begin());		//const_cast : refernce의 const를 잠깐 제거해주는 기능
-					//while (j != x.end())
-					//{
-					//	_alloc.construct(i, *j);
-					//	i++;
-					//	j++;
-					//}
-					//iterator it = _start;
-					//while (it != _finish)
-					//{
-					//	_alloc.destory(it);
-					//	it++;
-					//}
-					for (; j != x.end(); ++i, ++j) {
+					while (j != x.end())
+					{
 						_alloc.construct(i, *j);
+						i++;
+						j++;
 					}
-					for (iterator i = _start; i != _finish; ++i) {
-						_alloc.destroy(i);
+					iterator k = _start;
+					while (k != _finish)
+					{
+						_alloc.destroy(k);
+						k++;
 					}
 					_alloc.deallocate(_start, _end_storage - _start);
 					_start = new_start;
@@ -155,36 +142,23 @@ namespace ft
 				//내가 x보다 크거나 같으면
 				else if (size() >= x_len)
 				{
-					//iterator i(std::copy(x.begin(), x.end(), begin()));
-					//while (i != end())
-					//{
-					//	_alloc.destory(i);
-					//	i++;
-					//}
-					//for (iterator i(std::copy(x.begin(), x.end(), begin())) ; i != end(); ++i) {
-					//	_alloc.destroy(i);
-					//}
 					iterator i(std::copy(x.begin(), x.end(), begin()));
-					for (; i != end(); ++i)
+					while (i != end())
 					{
 						_alloc.destroy(i);
+						i++;
 					}
 				}
 				else
 				{
 					std::copy(x.begin(), x.begin() + size(), _start);
-					//iterator it1 = _finish;
-					//iterator it2 = const_cast<pointer>(x.begin()) + size();
-					//while (it2 != x.end())
-					//{
-					//	_alloc.construct(it1, *it2);
-					//	it1++;
-					//	it2++;
-					//}
-					iterator i = _finish;
-					iterator j = const_cast<pointer>(x.begin()) + size();
-					for (; j != x.end(); ++i, ++j) {
-						_alloc.construct(i, *j);
+					iterator it1 = _finish;
+					iterator it2 = const_cast<pointer>(x.begin()) + size();
+					while (it2 != x.end())
+					{
+						_alloc.construct(it1, *it2);
+						it1++;
+						it2++;
 					}
 				}
 				_finish = _start + x_len;
@@ -559,10 +533,11 @@ namespace ft
 			void				insert(iterator position, InputIterator first, InputIterator last,
 										typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 			{
-				for(; first != last; ++first)
+				while (first != last)
 				{
 					position = insert(position, *first);
-					++position;
+					position++;
+					first++;
 				}
 			};
 
