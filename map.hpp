@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/27 15:29:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/27 20:42:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,10 @@ namespace ft
 			//print_string();
 		public:
 
+			/**
+			 * @brief 이거 왜 없음????????
+			 * ==================================================================================================
+			 */
 			class value_compare : public binary_function<value_type, value_type, bool> {
 				friend class map; //부모/자식 관계가 아닌 외부 클래스를 private까지 접근 가능하도록 할 수 있음 개꿀
 				protected:
@@ -337,17 +341,32 @@ namespace ft
 						return comp(x.first, y.first);
 					}
 			};
+			/* ==================================================================================================*/
 
-			explicit map(const Compare& comp = Compare(),
-						 const Allocator& = Allocator());
+			explicit map(const key_compare& comp = key_compare(),
+						 const allocator_type& alloc = allocator_type())
+						 : _tree(comp, a)
+						 {};
+
 			template <class InputIterator>
-				map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& = Allocator()){
-
+				map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+				: _tree(comp, a)
+				{
+					_tree.insert_unique(first, last);	///이건 왜 하는거지? -> 그냥 insert라면 안되나?
 				};
-			map(const map<Key,T,Compare,Allocator>& x);
+			//map(const map<Key,T,Compare,Allocator>& x); --> 이거 수문이 지우고 아래로 변환함?
+			map(const map& x)
+			: _tree(x._tree)
+			{};
+
 			~map() {};
+
 			map<Key,T,Compare,Allocator>&
-				operator=(const map<Key,T,Compare,Allocator>& x);
+				operator=(const map<Key,T,Compare,Allocator>& x)
+				{
+					_tree = x._tree;
+					return (*this);
+				};
 
 			iterator					begin(){
 				struct node* node = _root;
@@ -445,7 +464,10 @@ namespace ft
 			};
 
 		/* Observers */
-			key_compare			key_comp() const;
+			key_compare			key_comp() const
+			{
+				return (_tree._key_compare);
+			};
 			value_compare		value_comp() const;
 
 		/* Map operations: */
