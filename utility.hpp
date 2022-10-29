@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:19:58 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/19 19:45:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/29 18:18:40 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,29 @@ namespace ft
  */
 template <class T1, class T2>
 	struct pair {
-		typedef T1 first_type;
-		typedef T2 second_type;
+		public:
+			typedef T1 first_type;
+			typedef T2 second_type;
 
-		T1 first;
-		T2 second;
+			//T1 first;
+			//T2 second;
+			first_type first;
+			second_type second;
 
-		pair() : first(T1()), second(T2()) {};
-		pair(const T1& x, const T2& y) : first(x), second(y) {};
-		template<class U, class V>
-			pair(const pair<U, V> &p) : first(p.first), second(p.second) {};
+			//pair() : first(T1()), second(T2()) {};
+			pair() : first(), second() {};
+			pair(const T1& x, const T2& y) : first(x), second(y) {};
+			template<class U, class V>
+				pair(const pair<U, V> &p) : first(p.first), second(p.second) {};
 
+			//pair& operator=(const pair& other)
+			//{
+			//	if (*this == other )
+			//		return (*this);
+			//	this->first = other.first;
+			//	this->second = other.second;
+			//	return (*this);
+			//}
 	};
 
 	/**
@@ -74,8 +86,9 @@ template <class T1, class T2>
 
 	template <class T1, class T2>
 		//pair<T1,T2> make_pair(const T1& x, const T2& y){ 이거 Head에는 &있는데 왜 안붙일까? -> 복사 생성자가 생성 안되니까 속도 차이가 발생해 개꿀
-		pair<T1,T2> make_pair(const T1 x, const T2 y){
-			return ( pair<T1,T2>(x, y); );
+		//pair<T1,T2> make_pair(const T1 x, const T2 y){
+		pair<T1,T2> make_pair(T1 x, T2 y){
+			return ( pair<T1,T2>(x, y) );
 		};
 
 }
