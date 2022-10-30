@@ -6,12 +6,15 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/30 23:51:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/31 07:18:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
+
+
+# include "color.hpp"
 
 # include <iostream>
 # include <memory>
@@ -349,31 +352,67 @@ namespace ft
 			};
 
 			//node* find_node(node* node, const key_type& key) const
-			node* find_node(node* node, const key_type& key)
-			{
-				if (node == NULL)
-					return ( NULL );
-				else if (node->value.first == key)
-					return ( NULL );
-				else if (node->value.first > key && node->left )
-					return ( find_node(node->left, key) );
-				else if (node->value.first < key && node->right )
-					return ( find_node(node->right, key) );
-				return ( NULL );
-			};
+			//node* find_node(node* node, const key_type& key)
+			//{
+			//	if (node == NULL)
+			//		return ( NULL );
+			//	else if (node->value.first == key)
+			//		return ( NULL );
+			//	else if (node->value.first > key && node->left )
+			//		return ( find_node(node->left, key) );
+			//	else if (node->value.first < key && node->right )
+			//		return ( find_node(node->right, key) );
+			//	return ( NULL );
+			//};
 
-			node* find_node(node* node, const key_type& key) const
+
+			node* find_node(node* node, key_type key) const
 			{
 				if (node == NULL)
-					return ( NULL );
-				else if (node->value.first == key)
-					return ( NULL );
-				else if (node->value.first > key && node->left )
-					return ( find_node(node->left, key) );
-				else if (node->value.first < key && node->right )
-					return ( find_node(node->right, key) );
-				return ( NULL );
-			};
+					return NULL;
+
+				if (Compare()(key, node->value.first))
+					return find_node(node->left, key);
+				else if (Compare()(node->value.first, key))
+					return find_node(node->right, key);
+				else
+					return node;
+			}
+
+			bool is_find_node(node* root, key_type key) const
+			{
+				if (root == NULL)
+				{
+					//std::cout << RED "False\n" RESET;
+					return false;
+				}
+
+				if (Compare()(key, root->value.first))
+					return is_find_node(root->left, key);
+				else if (Compare()(root->value.first, key))
+					return is_find_node(root->right, key);
+				else
+					return true;
+			}
+
+			//node* find_node(node* node, const key_type& key) const
+			//{
+			//	if (node == NULL)
+			//	{
+			//		std::cout <<"Nope\n";
+			//		return ( NULL );
+			//	}
+			//	else if (node->value.first == key)
+			//	{
+			//		std::cout << "Same\n";
+			//		return ( NULL );
+			//	}
+			//	else if (node->value.first > key && node->left )
+			//		return ( find_node(node->left, key) );
+			//	else if (node->value.first < key && node->right )
+			//		return ( find_node(node->right, key) );
+			//	return ( NULL );
+			//};
 
 			node* balance_tree(node* node)
 			{
@@ -582,20 +621,52 @@ namespace ft
 			 */
 			pair<iterator, bool>	insert(const value_type& x)
 			{
+				//std::cout << YELLOW "insert A\n" RESET;
 				node* node = find_node(_root, x.first);
-				if (node)
+				//std::cout << BLUE "[" << x.first << "]\n" RESET;
+				if (node && _root != this->_last_node)
+				{
+					//std::cout << "[in]\n" RESET;
 					return (ft::pair<iterator, bool>(iterator(node, _last_node, _comp), false));
+				}
+				//std::cout << "[out]\n" RESET;
 				_root = insert_node(_root, x);
 				_size++;
 				return (ft::pair<iterator, bool>(iterator(_new_node, _last_node, _comp), true));
 
 			};
+			//pair<iterator, bool>	insert(const value_type& x)
+			//{
+			//	if (_root == mEnd)
+			//	{
+			//		_root = NULL;
+			//	}
+			//	bool rtn = false;
+			//	if (mTree.FindNode(mRoot, val.first) == false)
+			//	{
+			//		mLast->right = NULL;
+			//		mRoot = mTree.InsertNode(mRoot, val, mRoot);
+			//		mRecent = mTree.SearchNode(mRoot, val.first);
+			//		mLast = mTree.FindMax(mRoot);
+			//		mLast->right = mEnd;
+			//		mEnd->parent = mLast;
+			//		mSize++;
+			//		rtn = true;
+			//	}
+			//	return ft::make_pair(iterator(mRecent), rtn);
+			//	return (ft::pair<iterator, bool>(iterator(_new_node, _last_node, _comp), true));
+			//};
+
 			iterator				insert(iterator position, const value_type& x)
 			{
+				//std::cout << YELLOW "insert B\n" RESET;
 				(void)position;
-				node* node = find_node(_root, x.first);
+				struct node* node = find_node(_root, x.first);
 				if (node)
+				{
+					//std::cout << RED "################@@@@@@@@@@@\n" RESET;
 					return ( iterator(node, _last_node, _comp) );
+				}
 				_root = insert_node(_root, x);
 				_size++;
 				return ( iterator(_new_node, _last_node, _comp) );
@@ -618,6 +689,7 @@ namespace ft
 
 			size_type			erase(const key_type& x)
 			{
+
 				node* node = find_node(_root, x);
 				if (node == NULL)
 					return (0);
@@ -629,11 +701,7 @@ namespace ft
 			void				erase(iterator first, iterator last)
 			{
 				while (first != last)
-				{
-					iterator tmp(first);
-					first++;
-					erase(tmp);
-				}
+					erase(first++);
 			};
 			void				swap(map<Key,T,Compare,Alloc>& x)
 			{
