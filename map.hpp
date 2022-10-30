@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/30 23:26:09 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/30 23:51:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,22 +107,18 @@ namespace ft
 			{
 				if (node == _last_node)
 				{
-					//std::cout <<"Node == _last_node\n";
 					_new_node = create_node(value);
 					_new_node->right = _last_node;
 					_last_node->parent = _new_node;
-					//std::cout <<"Node == _last_node done\n";
 					return ( _new_node );
 				}
 				if (node == NULL)
 				{
-					//std::cout <<"Node == NULL\n";
 					_new_node = create_node(value);
 					return _new_node;
 				}
 				if (node->value.first > value.first)
 				{
-					//std::cout <<"LEFT\n";
 					node->left = insert_node(node->left, value);
 					node->left->parent = node;
 				}
@@ -425,7 +421,6 @@ namespace ft
 
 			//void print_int(node* node)
 			//{
-			//	std::cout << "[" << << "]";
 			//};
 			//print_string();
 		public:
@@ -587,16 +582,12 @@ namespace ft
 			 */
 			pair<iterator, bool>	insert(const value_type& x)
 			{
-
 				node* node = find_node(_root, x.first);
 				if (node)
 					return (ft::pair<iterator, bool>(iterator(node, _last_node, _comp), false));
 				_root = insert_node(_root, x);
-
-				//insertNode(_root, x);
 				_size++;
-				std::cout << "insert A done\n";
-				return (ft::pair<iterator, bool>(iterator(node, _last_node, _comp), true));
+				return (ft::pair<iterator, bool>(iterator(_new_node, _last_node, _comp), true));
 
 			};
 			iterator				insert(iterator position, const value_type& x)
@@ -606,17 +597,14 @@ namespace ft
 				if (node)
 					return ( iterator(node, _last_node, _comp) );
 				_root = insert_node(_root, x);
-				//insertNode(_root, x);
 				_size++;
-				return ( iterator(node, _last_node, _comp) );
+				return ( iterator(_new_node, _last_node, _comp) );
 			};
 			template <class InputIterator>
 				void insert(InputIterator first, InputIterator last)
 				{
-					std::cout <<"inset C\n";
 					while (first != last)
 					{
-						std::cout<< "-size: " << size()<<"\n";
 						insert(*first);
 						first++;
 					}
