@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:48:13 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/30 17:32:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/30 23:22:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,7 @@ namespace ft
                 _comp = other.getCompare();
             }
 
-            ~bidirectional_iterator() {
-                //std::cout << "bidi dis B\n";
-
-            }
-
-
+            ~bidirectional_iterator() {}
 
             bidirectional_iterator& operator=(const bidirectional_iterator<value_type, Compare, node>& other)
             {

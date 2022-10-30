@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/30 19:58:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/30 23:26:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -587,6 +587,7 @@ namespace ft
 			 */
 			pair<iterator, bool>	insert(const value_type& x)
 			{
+
 				node* node = find_node(_root, x.first);
 				if (node)
 					return (ft::pair<iterator, bool>(iterator(node, _last_node, _comp), false));
