@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:48:13 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/29 14:42:30 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/30 17:32:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,28 @@ namespace ft
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference			reference;
 
             bidirectional_iterator(node* Node = NULL, node*  lastNode = NULL, const key_compare& comp = key_compare())
-            : _node(Node), _last_node(lastNode), _comp(comp) {}
+            : _node(Node), _last_node(lastNode), _comp(comp) {
+                //std::cout << "bidi construct A\n";
+            }
 
             bidirectional_iterator(const bidirectional_iterator<value_type, Compare, node>& other)
             {
+                //std::cout << "bidi construct B\n";
                 _node = other.getNode();
                 _last_node = other.getLastNode();
                 _comp = other.getCompare();
             }
 
-            ~bidirectional_iterator() {}
+            ~bidirectional_iterator() {
+                //std::cout << "bidi dis B\n";
+
+            }
 
 
 
             bidirectional_iterator& operator=(const bidirectional_iterator<value_type, Compare, node>& other)
             {
+                //std::cout << "oper=\n";
                 if (this != &other)
                 {
                     _node = other._node;
