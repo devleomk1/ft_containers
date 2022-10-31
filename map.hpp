@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/31 07:18:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/10/31 08:53:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,6 @@ namespace ft
 				return ( node );
 			}
 
-			//void insertNode(node* node, const value_type& value)
-            //{
-            //    _root = insert_node(node, value);
-            //}
-
 			node* insert_node(node* node, const value_type& value)
 			{
 				if (node == _last_node)
@@ -120,12 +115,14 @@ namespace ft
 					_new_node = create_node(value);
 					return _new_node;
 				}
-				if (node->value.first > value.first)
+				//if (node->value.first > value.first)
+				if (Compare()(value.first, node->value.first))
 				{
 					node->left = insert_node(node->left, value);
 					node->left->parent = node;
 				}
-				else if (node->value.first < value.first)
+				//else if (node->value.first < value.first)
+				else if (Compare()(node->value.first, value.first))
 				{
 					node->right = insert_node(node->right, value);
 					node->right->parent = node;
@@ -464,21 +461,21 @@ namespace ft
 			//print_string();
 		public:
 
-			/**
-			 * @brief 이거 왜 없음???????? -> 아 있네...
-			 * ==================================================================================================
-			 */
-			class value_compare
+
+			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
 				friend class map;
 				public:
 					typedef bool 		result_type;
 					typedef value_type	first_argument_type;
 					typedef value_type	second_argument_type;
-					bool operator()(const value_type& lhs, const value_type& rhs) const { return _comp(lhs.first, rhs.first); }
+					bool operator()(const value_type& x, const value_type& y) const
+					{
+						return comp(x.first, y.first);
+					}
 				protected:
-					key_compare _comp;
-					value_compare(key_compare comp) : _comp(comp) {}
+					Compare comp;
+					value_compare(Compare c) : comp(c) {}
 			};
 			//class value_compare : public std::binary_function<value_type, value_type, bool> {
 			//	friend class map; //부모/자식 관계가 아닌 외부 클래스를 private까지 접근 가능하도록 할 수 있음 개꿀
@@ -600,11 +597,13 @@ namespace ft
 			 */
 			T& operator[](const key_type& x)
 			{
+				//std::cout << YELLOW "insert[]\n" RESET;
 				node* node = find_node(_root, x);
-				if (node)
+				if (node && _root != this->_last_node)
 					return (node->value.second);
-				value_type value = ft::make_pair<key_type, mapped_type>(x, mapped_type());
-				_root = insert_node(_root, value);
+				//value_type value = ft::make_pair<key_type, mapped_type>(x, T());
+				//_root = insert_node(_root, value);
+				_root = insert_node(_root, ft::make_pair(x, T()));
 				_size++;
 				return (_new_node->value.second);
 			};
@@ -729,8 +728,6 @@ namespace ft
 			};
 
 		/* Map operations: */
-			//typedef ft::bidirectional_iterator<ft::pair<const Key, T>, Compare, ft::map<Key, T, Compare, Alloc>::node> ft::map<Key, T, Compare, Alloc>::iterator
-
 			iterator			find(const key_type& x)
 			{
 				node* tmp = find_node(_root, x);
@@ -830,6 +827,7 @@ namespace ft
 		bool operator> (const map<Key,T,Compare,Alloc>& x,
 						const map<Key,T,Compare,Alloc>& y)
 						{ return y < x; };
+						//{ return y < x; };
 	template <class Key, class T, class Compare, class Alloc>
 		bool operator>=(const map<Key,T,Compare,Alloc>& x,
 						const map<Key,T,Compare,Alloc>& y)
