@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/02 11:56:24 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/03 23:22:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 # include "color.hpp"
 
-# include <iostream>
 # include <memory>
 # include <stdexcept>
 # include <cstddef> //for ptrdiff_t size_t
@@ -403,7 +402,7 @@ namespace ft
 				}
 			};
 
-			~map() {};	//없어도됨?
+			~map() {};
 
 			map<Key,T,Compare,Alloc>&
 				operator=(const map<Key,T,Compare,Alloc>& x)

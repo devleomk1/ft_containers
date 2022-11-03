@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/01 00:37:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/03 23:26:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ namespace ft
 		explicit	vector(size_type n, const T& value = value_type(),
 			const allocator_type& alloc = allocator_type())
 			: _alloc(alloc)
-			{//, _start(0), _finish(0), _end_storage(0)
+			{
 				_start = _alloc.allocate( n );
 				_end_storage = _start + n;
 				iterator i = _start;
@@ -94,7 +94,7 @@ namespace ft
 			iterator j = x._start;
 			while (n--)
 			{
-				_alloc.construct( i, *j );	//이건 왜 *j 일까?
+				_alloc.construct( i, *j );
 				j++;
 				i++;
 			}
@@ -165,7 +165,6 @@ namespace ft
 			return (*this);
 		};
 
-	//need enable_if here! =========================================
 		template <class InputIterator>
 			void assign(InputIterator first, InputIterator last,
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
@@ -173,7 +172,7 @@ namespace ft
 				erase(begin(), end());
 				insert(begin(), first, last);
 			};
-	//==============================================================
+
 		void assign(size_type n, const T& u)
 		{
 			erase(begin(), end());
@@ -364,7 +363,6 @@ namespace ft
 				}
 				else //( position != end() )
 				{
-					//WHY?
 					_alloc.construct(_finish, *(_finish -1));
 					++_finish;
 					value_type	x_copy = x;
@@ -498,14 +496,14 @@ namespace ft
 					it_i++;
 					it_j++;
 				}
-				new_finish = it_i;		//이거 마지막에 하나만 써도 괜찮은거 아닌가?
+				new_finish = it_i;
 				while ( n > 0 )
 				{
 					_alloc.construct(it_i, x);
 					it_i++;
 					n--;
 				}
-				new_finish = it_i;		//이거 마지막에 하나만 써도 괜찮은거 아닌가?
+				new_finish = it_i;
 				it_j = position;
 				while ( it_j != _finish )
 				{
@@ -513,7 +511,7 @@ namespace ft
 					it_i++;
 					it_j++;
 				}
-				new_finish = it_i;		//이거 마지막에 하나만 써도 괜찮은거 아닌가?
+				new_finish = it_i;
 				iterator		it_k = _start;
 				while (it_k != _finish)
 				{
