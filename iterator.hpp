@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:35:21 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/24 19:13:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:35:03 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ template <class Iterator>
 
 	// 🚨
 	// Q1. template <class Iterator> Header에는 이렇게 써있는데 왜 Class 2개 받는거임???
-	// Q2. current로 받아도 되는거 아닌가? 왜 base()로 받지?
+	// Q2. current로 받아도 되는거 아닌가? 왜 base()로 받지? -> protected라 접근 못할 수 있음
 	template <class IteratorL, class IteratorR>
 		bool operator==(
 			const reverse_iterator<IteratorL>& x,

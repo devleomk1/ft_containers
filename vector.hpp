@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/28 15:43:55 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/01 00:37:42 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ namespace ft
 {
 	//왜 allocator로 alloc을 따로 하는거지?
 	//template <class T, class Allocator = std::allocator<T> -> 내가 만든 얼록케이터라는것을 확실하게 하기 위해서
-	template <class T, class Alloc = std::allocator<T> >			//왜 Allocator가 아니라 Alloc으로 하는 걸까?
+	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
 	public:
 		//types:
 		typedef T												value_type;
-		typedef typename	Alloc::template rebind<T>::other	allocator_type; //안써도됌 ㅋㅋㅋ크루 삥뽕 근데 설명은 해야함.. 젠장.
-		//->
+		typedef typename	Alloc::template rebind<T>::other	allocator_type; //왜 rebind를 사용하는 걸까?
 		//typedef Allocator								allocator_type;
 		typedef typename	allocator_type::reference			reference;
 		typedef typename	allocator_type::const_reference		const_reference;
@@ -373,9 +372,9 @@ namespace ft
 					iterator	it_j = _finish - 1;
 					while (it_i != position)
 					{
-						*--it_j = *--it_i;	//WHY?
+						*--it_j = *--it_i;
 					}
-					*position = x_copy;		//x_copy를 하는 의미가 있는가?
+					*position = x_copy;
 				}
 			}
 			else	// ( _finish == _end_storage )
