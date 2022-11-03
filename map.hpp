@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/31 08:53:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:56:24 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,72 +198,6 @@ namespace ft
                 node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
                 return balance_tree(node);
             };
-/*===============================================================  */
-			//node* delete_node(node* node, const key_type& key)
-			//{
-			//	if (node == NULL)
-			//		return (node);
-			//	if (node->value.first > key)
-			//	{
-			//		node->left = delete_node(node->left, key);
-			//		if (node->left)
-			//			node->left->parent = node;
-			//	}
-			//	else if (node->value.first < key)
-			//	{
-			//		node->right = delete_node(node->right, key);
-			//		if (node->right)
-			//			node->right->parent = node;
-			//	}
-			//	else //삭제할 노드 발견하면 (node->key == key)
-			//	{
-			//	//=============================================//
-			//		//자식이 1개 or 0개
-			//		if( (node->left == NULL) || (node->right == NULL) )
-			//		{
-			//			struct node* tmp = node->left ? node->right : node->left;
-
-			//			//자식 노드가 없을 경우
-			//			if (tmp == NULL)
-			//			{
-			//				tmp = node;
-			//				node = NULL;
-			//			}
-			//			//자식 노드가 1개만 있는 경우
-			//			else
-			//			{
-			//				tmp->parent = node;
-			//				*node = *tmp;
-			//				//parent need
-			//			}
-			//			dealloc_node(tmp);
-			//		}
-			//		else
-			//		{
-			//			//!!!!HOW TO CHANGE PARENT?
-			//			// 부모를 어떻게 넣어줘야 할지 모르겠다.
-			//			// 1. 서브트리가 길다면?
-
-			//			// node with two children: Get the inorder
-			//			// successor (smallest in the right subtree)
-			//			//struct node* tmp = find_node_min(node->right);
-
-			//			// Copy the inorder successor's
-			//			// data to this node
-			//			//node->value.first = tmp->value.first;
-			//			//node->key = tmp->key;
-
-			//			// Delete the inorder successor
-			//			//node->right = delete_node(node->right, tmp->key);
-			//			//node->right = delete_node(node->right, tmp->value.first);
-			//		}
-			//	}
-			//	//=============================================//
-			//	node->height = get_max_height(node) + 1;
-			//	return ( balance_tree(node) );
-			//};
-/*===============================================================  */
-
 
 			int get_height(node* node)
 			{
@@ -342,26 +276,9 @@ namespace ft
 				}
 				tmp->left = node;
 				node->parent = tmp;
-				//node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
-				//tmp->height = std::max(get_height(tmp->left), get_height(tmp->right)) + 1;
 				update_height(node, tmp);
 				return (tmp);
 			};
-
-			//node* find_node(node* node, const key_type& key) const
-			//node* find_node(node* node, const key_type& key)
-			//{
-			//	if (node == NULL)
-			//		return ( NULL );
-			//	else if (node->value.first == key)
-			//		return ( NULL );
-			//	else if (node->value.first > key && node->left )
-			//		return ( find_node(node->left, key) );
-			//	else if (node->value.first < key && node->right )
-			//		return ( find_node(node->right, key) );
-			//	return ( NULL );
-			//};
-
 
 			node* find_node(node* node, key_type key) const
 			{
@@ -379,10 +296,7 @@ namespace ft
 			bool is_find_node(node* root, key_type key) const
 			{
 				if (root == NULL)
-				{
-					//std::cout << RED "False\n" RESET;
 					return false;
-				}
 
 				if (Compare()(key, root->value.first))
 					return is_find_node(root->left, key);
@@ -392,24 +306,6 @@ namespace ft
 					return true;
 			}
 
-			//node* find_node(node* node, const key_type& key) const
-			//{
-			//	if (node == NULL)
-			//	{
-			//		std::cout <<"Nope\n";
-			//		return ( NULL );
-			//	}
-			//	else if (node->value.first == key)
-			//	{
-			//		std::cout << "Same\n";
-			//		return ( NULL );
-			//	}
-			//	else if (node->value.first > key && node->left )
-			//		return ( find_node(node->left, key) );
-			//	else if (node->value.first < key && node->right )
-			//		return ( find_node(node->right, key) );
-			//	return ( NULL );
-			//};
 
 			node* balance_tree(node* node)
 			{
@@ -444,11 +340,6 @@ namespace ft
 				return ( find_node_min(node->right) );
 			};
 
-			//delete_min()
-			//{
-
-			//};	//이거 이름 이상하다 -> 이거 필요함???
-
 			void dealloc_node(node* node)
 			{
 				_alloc_pair.destroy(&node->value);
@@ -460,8 +351,6 @@ namespace ft
 			//};
 			//print_string();
 		public:
-
-
 			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
 				friend class map;
@@ -477,17 +366,6 @@ namespace ft
 					Compare comp;
 					value_compare(Compare c) : comp(c) {}
 			};
-			//class value_compare : public std::binary_function<value_type, value_type, bool> {
-			//	friend class map; //부모/자식 관계가 아닌 외부 클래스를 private까지 접근 가능하도록 할 수 있음 개꿀
-			//	protected:
-			//		Compare comp;
-			//		value_compare(Compare c) : comp(c) {}
-			//	public:
-			//		bool operator()(const value_type& x, const value_type& y) const {
-			//			return comp(x.first, y.first);
-			//		}
-			//};
-			/* ==================================================================================================*/
 
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 			: _size(0), _alloc_pair(alloc), _comp(comp)
@@ -510,7 +388,7 @@ namespace ft
 					first++;
 				}
 			};
-			//map(const map<Key,T,Compare,Allocator>& x); --> 이거 수문이 지우고 아래로 변환함?
+
 			map(const map& x)
 			: _size(0), _alloc_pair(x._alloc_pair), _comp(x._comp), _alloc_node(x._alloc_node)
 			{
@@ -523,9 +401,6 @@ namespace ft
 					insert(*i);
 					i++;
 				}
-				//for (const_iterator i = x.begin(); i != x.end(); ++i)
-				//	insert(*i);
-
 			};
 
 			~map() {};	//없어도됨?
@@ -597,12 +472,9 @@ namespace ft
 			 */
 			T& operator[](const key_type& x)
 			{
-				//std::cout << YELLOW "insert[]\n" RESET;
 				node* node = find_node(_root, x);
 				if (node && _root != this->_last_node)
 					return (node->value.second);
-				//value_type value = ft::make_pair<key_type, mapped_type>(x, T());
-				//_root = insert_node(_root, value);
 				_root = insert_node(_root, ft::make_pair(x, T()));
 				_size++;
 				return (_new_node->value.second);
