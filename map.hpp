@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/03 23:22:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:21:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MAP_HPP
 
 
-# include "color.hpp"
+//# include "color.hpp"
 
 # include <memory>
 # include <stdexcept>

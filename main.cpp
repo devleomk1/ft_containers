@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 20:35:32 by jisokang          #+#    #+#             */
-/*   Updated: 2022/06/15 15:38:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:23:48 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,23 @@
  *
  */
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
-	namespace ft = std;
-#else
-	#include <map.hpp>
-	#include <stack.hpp>
-	#include <vector.hpp>
-#endif
+#include "vector.hpp"
+#include "stack.hpp"
+#include "map.hpp"
+//#if 0 //CREATE A REAL STL EXAMPLE
+//	#include <map>
+//	#include <stack>
+//	#include <vector>
+//	namespace ft = std;
+//#else
+//	#include "map.hpp"
+//	#include "stack.hpp"
+//	#include "vector.hpp"
+//#endif
 
 #include <stdlib.h>
 
@@ -48,6 +52,10 @@ struct Buffer
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 
+void at_exit()
+{
+	system("leaks a.out");
+}
 template<typename T>
 class MutantStack : public ft::stack<T>
 {
@@ -113,8 +121,9 @@ int main(int argc, char** argv) {
 
 	for (int i = 0; i < COUNT; ++i)
 	{
-		map_int.insert(ft::make_pair(rand(), rand()));
+		map_int.insert(ft::make_pair(i, rand()));
 	}
+	map_int.erase(1);
 
 	int sum = 0;
 	for (int i = 0; i < 10000; i++)
@@ -135,5 +144,6 @@ int main(int argc, char** argv) {
 		std::cout << *it;
 	}
 	std::cout << std::endl;
+	atexit(at_exit);
 	return (0);
 }
