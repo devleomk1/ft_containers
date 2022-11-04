@@ -6,12 +6,12 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:19:58 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/03 23:16:01 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:25:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_HPP
-# define VECTOR_HPP
+#ifndef UTILITY_HPP
+# define UTILITY_HPP
 
 namespace ft
 {
