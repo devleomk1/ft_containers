@@ -6,26 +6,21 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/04 16:21:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:50:06 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
 
-
-//# include "color.hpp"
-
 # include <memory>
 # include <stdexcept>
-# include <cstddef> //for ptrdiff_t size_t
-//# include <iostream>
-# include "utility.hpp" //for ft::pair
+# include <cstddef> 	//for ptrdiff_t size_t
+# include "utility.hpp"	//for ft::pair
 # include "algorithm.hpp"
 # include "iterator.hpp"
 # include "bidirectional_iterator.hpp"
 
-//# include ""
 namespace ft
 {
 	// AVL 트리는 삭제/삽입하는 곳을 기준으로 위로 올라가면서 회전한다!
@@ -134,13 +129,15 @@ namespace ft
 			{
 				if (!node)
 					return NULL;
-				if (node->value.first > key) // 왼쪽 자식으로 이동
+				//if (node->value.first > key) // 왼쪽 자식으로 이동
+				if (Compare()(key, node->value.first))
 				{
 					node->left = delete_node(node->left, key);
 					if (node->left)
 						node->left->parent = node;
 				}
-				else if (node->value.first < key) // 오른쪽 자식으로 이동
+				//else if (node->value.first < key) // 오른쪽 자식으로 이동
+				else if (Compare()(node->value.first, key)) // 오른쪽 자식으로 이동
 				{
 					node->right = delete_node(node->right, key);
 					if (node->right)
@@ -169,8 +166,8 @@ namespace ft
 					}
 					else if (node->left && node->right)
 					{
-						struct node* _target = node;    //  1  1
-						node = find_node_min(_target->right); //중위 후속자를 찾아서 n이 참조하게 함
+						struct node* _target = node;
+						node = find_node_min(_target->right);
 						node->parent= _target->parent;
 						node->right = del_min(_target->right);
 						if (node->right)
@@ -182,10 +179,11 @@ namespace ft
 					else
 					{
 						dealloc_node(node);
-						return nullptr;
+						return NULL;
 					}
                 }
-                node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
+                //node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
+                node->height = get_max_height(node) + 1;
                 return balance_tree(node);
             };
 
@@ -194,7 +192,8 @@ namespace ft
                 if (!node->left)
                     return node->right;
                 node->left = del_min(node->left);
-                node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
+                //node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
+                node->height = get_max_height(node) + 1;
                 return balance_tree(node);
             };
 
@@ -402,7 +401,10 @@ namespace ft
 				}
 			};
 
-			~map() {};
+			~map() {
+				clear();
+            	_alloc_node.deallocate(this->_last_node, 1);
+			};
 
 			map<Key,T,Compare,Alloc>&
 				operator=(const map<Key,T,Compare,Alloc>& x)
@@ -529,12 +531,10 @@ namespace ft
 
 			iterator				insert(iterator position, const value_type& x)
 			{
-				//std::cout << YELLOW "insert B\n" RESET;
 				(void)position;
 				struct node* node = find_node(_root, x.first);
 				if (node)
 				{
-					//std::cout << RED "################@@@@@@@@@@@\n" RESET;
 					return ( iterator(node, _last_node, _comp) );
 				}
 				_root = insert_node(_root, x);
@@ -659,15 +659,15 @@ namespace ft
 			};
 
 			ft::pair<iterator, iterator>
-				equal_range(const key_type& x)
-				{
-					return ( ft::pair<iterator, iterator>(lower_bound(x), upper_bound(x)) );
-				};
+			equal_range(const key_type& x)
+			{
+				return ( ft::pair<iterator, iterator>(lower_bound(x), upper_bound(x)) );
+			};
 			ft::pair<const_iterator, const_iterator>
-				equal_range(const key_type& x) const
-				{
-					return ( ft::pair<const_iterator, const_iterator>(lower_bound(x), upper_bound(x)) );
-				};
+			equal_range(const key_type& x) const
+			{
+				return ( ft::pair<const_iterator, const_iterator>(lower_bound(x), upper_bound(x)) );
+			};
 	};
 
 	/**
@@ -682,31 +682,33 @@ namespace ft
 	 */
 
 	template <class Key, class T, class Compare, class Alloc>
-		bool operator==(const map<Key,T,Compare,Alloc>& x,
-						const map<Key,T,Compare,Alloc>& y)
-						{ return (x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin())); };
+	bool operator==(const map<Key,T,Compare,Alloc>& x,
+					const map<Key,T,Compare,Alloc>& y)
+					{ return (x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin())); };
 
 	template <class Key, class T, class Compare, class Alloc>
-		bool operator< (const map<Key,T,Compare,Alloc>& x,
-						const map<Key,T,Compare,Alloc>& y)
-						{ return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); };
+	bool operator< (const map<Key,T,Compare,Alloc>& x,
+					const map<Key,T,Compare,Alloc>& y)
+					{ return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); };
+
 	template <class Key, class T, class Compare, class Alloc>
-		bool operator!=(const map<Key,T,Compare,Alloc>& x,
-						const map<Key,T,Compare,Alloc>& y)
-						{ return !(x == y); };
+	bool operator!=(const map<Key,T,Compare,Alloc>& x,
+					const map<Key,T,Compare,Alloc>& y)
+					{ return !(x == y); };
 	template <class Key, class T, class Compare, class Alloc>
-		bool operator> (const map<Key,T,Compare,Alloc>& x,
-						const map<Key,T,Compare,Alloc>& y)
-						{ return y < x; };
-						//{ return y < x; };
+	bool operator> (const map<Key,T,Compare,Alloc>& x,
+					const map<Key,T,Compare,Alloc>& y)
+					{ return y < x; };
+
 	template <class Key, class T, class Compare, class Alloc>
-		bool operator>=(const map<Key,T,Compare,Alloc>& x,
-						const map<Key,T,Compare,Alloc>& y)
-						{ return !(x < y); };
+	bool operator>=(const map<Key,T,Compare,Alloc>& x,
+					const map<Key,T,Compare,Alloc>& y)
+					{ return !(x < y); };
+
 	template <class Key, class T, class Compare, class Alloc>
-		bool operator<=(const map<Key,T,Compare,Alloc>& x,
-						const map<Key,T,Compare,Alloc>& y)
-						{ return !(y < x); };
+	bool operator<=(const map<Key,T,Compare,Alloc>& x,
+					const map<Key,T,Compare,Alloc>& y)
+					{ return !(y < x); };
 
 	/* Specialized algorithms: */
 	template <class Key, class T, class Compare, class Alloc>
