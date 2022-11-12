@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 00:33:53 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/12 19:49:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 21:00:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 	friend bool operator< (const stack<_T, _Container>& x, const stack<_T, _Container>& y);
 };
 
-	// 🚨 'x.c'를 비교하는 것과 'x'만 비교하는 건 무슨 차이일까?
 	template <class T, class Container>
 	bool operator==(const stack<T, Container>& x,
 					const stack<T, Container>& y){
