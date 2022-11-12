@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/07 18:50:06 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:13:03 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,10 +344,6 @@ namespace ft
 				_alloc_node.deallocate(node, 1);
 			};
 
-			//void print_int(node* node)
-			//{
-			//};
-			//print_string();
 		public:
 			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
@@ -403,7 +399,7 @@ namespace ft
 
 			~map() {
 				clear();
-            	_alloc_node.deallocate(this->_last_node, 1);
+				_alloc_node.deallocate(this->_last_node, 1);
 			};
 
 			map<Key,T,Compare,Alloc>&
@@ -415,6 +411,10 @@ namespace ft
 					insert(x.begin(), x.end());
 					return (*this);
 				};
+
+			allocator_type get_allocator() const {
+				return ( allocator_type() );
+			};
 
 			iterator					begin(){
 				node* node = _root;
@@ -493,41 +493,16 @@ namespace ft
 			 */
 			pair<iterator, bool>	insert(const value_type& x)
 			{
-				//std::cout << YELLOW "insert A\n" RESET;
 				node* node = find_node(_root, x.first);
-				//std::cout << BLUE "[" << x.first << "]\n" RESET;
 				if (node && _root != this->_last_node)
 				{
-					//std::cout << "[in]\n" RESET;
 					return (ft::pair<iterator, bool>(iterator(node, _last_node, _comp), false));
 				}
-				//std::cout << "[out]\n" RESET;
 				_root = insert_node(_root, x);
 				_size++;
 				return (ft::pair<iterator, bool>(iterator(_new_node, _last_node, _comp), true));
 
 			};
-			//pair<iterator, bool>	insert(const value_type& x)
-			//{
-			//	if (_root == mEnd)
-			//	{
-			//		_root = NULL;
-			//	}
-			//	bool rtn = false;
-			//	if (mTree.FindNode(mRoot, val.first) == false)
-			//	{
-			//		mLast->right = NULL;
-			//		mRoot = mTree.InsertNode(mRoot, val, mRoot);
-			//		mRecent = mTree.SearchNode(mRoot, val.first);
-			//		mLast = mTree.FindMax(mRoot);
-			//		mLast->right = mEnd;
-			//		mEnd->parent = mLast;
-			//		mSize++;
-			//		rtn = true;
-			//	}
-			//	return ft::make_pair(iterator(mRecent), rtn);
-			//	return (ft::pair<iterator, bool>(iterator(_new_node, _last_node, _comp), true));
-			//};
 
 			iterator				insert(iterator position, const value_type& x)
 			{
@@ -615,9 +590,6 @@ namespace ft
 			};
 			size_type			count(const key_type& x) const
 			{
-				//if (find(x) != this->end())
-				//	return (1);
-				//return (0);
 				node* tmp = find_node(_root, x);
 				if (tmp)
 					return (1);
@@ -625,7 +597,7 @@ namespace ft
 			};
 
 			//bound는 뭐하는 함수일까? ->
-			iterator			lower_bound(const key_type& x)			//이상 -> 일단 이거는 한번 찾아보자
+			iterator			lower_bound(const key_type& x)
 			{
 				iterator it = begin();
 				for (; it != end(); ++it)
