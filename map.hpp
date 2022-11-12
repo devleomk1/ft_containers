@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/12 15:13:03 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:34:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -596,7 +596,12 @@ namespace ft
 				return (0);
 			};
 
-			//bound는 뭐하는 함수일까? ->
+			/**
+			 * @brief lower_bound
+			 *
+			 * @param x
+			 * @return 'x' 미만
+			 */
 			iterator			lower_bound(const key_type& x)
 			{
 				iterator it = begin();
@@ -613,6 +618,13 @@ namespace ft
 						break;
 				return it;
 			};
+
+			/**
+			 * @brief
+			 *
+			 * @param x
+			 * @return 'x' 초과
+			 */
 			iterator			upper_bound(const key_type& x)
 			{
 				iterator it = begin();
@@ -620,7 +632,7 @@ namespace ft
 					if (_comp(x, it->first))
 						break;
 				return it;
-			};			//초과
+			};
 			const_iterator		upper_bound(const key_type& x) const
 			{
 				const_iterator it = begin();

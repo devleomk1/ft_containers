@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:48:13 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/03 23:34:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:51:58 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,39 +128,39 @@ namespace ft
 	};
 
 	template <typename T, typename Compare, typename node>
-	bool operator==(ft::bidirectional_iterator<const T, Compare, node>& lhs,
-		ft::bidirectional_iterator<T, Compare, node>& rhs)
+	bool operator==(ft::bidirectional_iterator<const T, Compare, node>& x,
+		ft::bidirectional_iterator<T, Compare, node>& y)
 	{
-		if (lhs.getNode() == NULL && rhs.getNode() == NULL)
+		if (x.getNode() == NULL && y.getNode() == NULL)
 			return false;
-		return (lhs.getNode() == rhs.getNode());
+		return (x.getNode() == y.getNode());
 	}
 
 	template <typename T, typename Compare, typename node>
-	bool operator==(ft::bidirectional_iterator<T, Compare, node>& lhs,
-		ft::bidirectional_iterator<const T, Compare, node>& rhs)
+	bool operator==(ft::bidirectional_iterator<T, Compare, node>& x,
+		ft::bidirectional_iterator<const T, Compare, node>& y)
 	{
-		if (lhs.getNode() == NULL && rhs.getNode() == NULL)
+		if (x.getNode() == NULL && y.getNode() == NULL)
 			return false;
-		return (lhs.getNode() == rhs.getNode());
+		return (x.getNode() == y.getNode());
 	}
 
 	template <typename T, typename Compare, typename node>
-	bool operator!=(ft::bidirectional_iterator<const T, Compare, node>& lhs,
-		ft::bidirectional_iterator<T, Compare, node>& rhs)
+	bool operator!=(ft::bidirectional_iterator<const T, Compare, node>& x,
+		ft::bidirectional_iterator<T, Compare, node>& y)
 	{
-		if (lhs.getNode() == NULL && rhs.getNode() == NULL)
+		if (x.getNode() == NULL && y.getNode() == NULL)
 			return true;
-		return (lhs.getNode() != rhs.getNode());
+		return (x.getNode() != y.getNode());
 	}
 
 	template <typename T, typename Compare, typename node>
-	bool operator!=(ft::bidirectional_iterator<T, Compare, node>& lhs,
-		ft::bidirectional_iterator<const T, Compare, node>& rhs)
+	bool operator!=(ft::bidirectional_iterator<T, Compare, node>& x,
+		ft::bidirectional_iterator<const T, Compare, node>& y)
 	{
-		if (lhs.getNode() == NULL && rhs.getNode() == NULL)
+		if (x.getNode() == NULL && y.getNode() == NULL)
 			return true;
-		return (lhs.getNode() != rhs.getNode());
+		return (x.getNode() != y.getNode());
 	}
 
 

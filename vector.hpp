@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:25:17 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/03 23:26:07 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:28:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define VECTOR_HPP
 
 # include <memory>
-# include <algorithm>
+//# include <algorithm>
 # include <stdexcept>
 # include "type_traits.hpp"
 # include "iterator.hpp"
@@ -24,7 +24,6 @@
 
 namespace ft
 {
-	//왜 allocator로 alloc을 따로 하는거지?
 	//template <class T, class Allocator = std::allocator<T> -> 내가 만든 얼록케이터라는것을 확실하게 하기 위해서
 	template <class T, class Alloc = std::allocator<T> >
 	class vector
@@ -32,7 +31,17 @@ namespace ft
 	public:
 		//types:
 		typedef T												value_type;
-		typedef typename	Alloc::template rebind<T>::other	allocator_type; //왜 rebind를 사용하는 걸까?
+		/**
+		 * @brief rebind
+		 *
+		 * 결과적으로, list<T>는 allocator::rebind<_Node>::other를 참조함으로써,
+		 * T 객체의 할당자를 통해 _Node의 할당자를 찾을 수 있게 된다.
+		 * 그리고, 표준 컨테이너는 반드시 이 rebind 중첩 구조체 템플릿이 있을 것으로 가정하고 작성되어 있다.
+		 * 이것이 바로 STL allocator가 반드시 rebind 중첩 구조체 템플릿을 가져야 하는 이유이다.
+		 *
+		 */
+		typedef typename	Alloc::template rebind<T>::other	allocator_type;
+
 		//typedef Allocator								allocator_type;
 		typedef typename	allocator_type::reference			reference;
 		typedef typename	allocator_type::const_reference		const_reference;
@@ -614,33 +623,33 @@ namespace ft
 	 * - swap
 	 */
 	template <class T, class Alloc>
-		bool operator== (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			return ( a.size() == b.size() && ft::equal(a.begin(), a.end(), b.begin()) );
+		bool operator== (const vector<T,Alloc>& x, const vector<T,Alloc>& y){
+			return ( x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin()) );
 		};
 	template <class T, class Alloc>
-		bool operator!= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			return ( !(a == b) );
+		bool operator!= (const vector<T,Alloc>& x, const vector<T,Alloc>& y){
+			return ( !(x == y) );
 		};
 	template <class T, class Alloc>
-		bool operator<  (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			return ( ft::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end()) );
+		bool operator<  (const vector<T,Alloc>& x, const vector<T,Alloc>& y){
+			return ( ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()) );
 		};
 	template <class T, class Alloc>
-		bool operator<= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			return( !(b < a) );
+		bool operator<= (const vector<T,Alloc>& x, const vector<T,Alloc>& y){
+			return( !(y < x) );
 		};
 	template <class T, class Alloc>
-		bool operator>  (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			return ( b < a );
+		bool operator>  (const vector<T,Alloc>& x, const vector<T,Alloc>& y){
+			return ( y < x );
 		};
 	template <class T, class Alloc>
-		bool operator>= (const vector<T,Alloc>& a, const vector<T,Alloc>& b){
-			return ( !(a < b) );
+		bool operator>= (const vector<T,Alloc>& x, const vector<T,Alloc>& y){
+			return ( !(x < y) );
 		};
 
 	template <class T, class Alloc>
-		void swap (vector<T, Alloc>& a, vector<T, Alloc>& b){
-			a.swap(b);
+		void swap (vector<T, Alloc>& x, vector<T, Alloc>& y){
+			x.swap(y);
 		}
 }
 

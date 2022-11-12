@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 0 //CREATE A REAL STL EXAMPLE
+#if 0
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -1040,5 +1040,5 @@ int main()
 	duration = (double)(finish - start) / CLOCKS_PER_SEC;
 	std::cout << "++++++++++++++++++++||map escape = " << duration << "sec||++++++++++++++++++++" << std::endl;
 
-	 std::atexit(at_exit_leak);
+	std::atexit(at_exit_leak);
 }
