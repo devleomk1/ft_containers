@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:25:09 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/12 19:34:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:52:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 namespace ft
 {
 	// AVL 트리는 삭제/삽입하는 곳을 기준으로 위로 올라가면서 회전한다!
-	// 1. tree를 Map에 어떻게 붙여야 할까?
-	// 2. less가 뭐용? : Key의 쌍을 개를 비교하는데 사용함, 과제에서 요구하지 않기 때문에 직접 만들 필요 없음.
+	// less : Key의 쌍을 비교하는데 사용함, 과제에서 요구하지 않기 때문에 직접 만들 필요 없고 std에서 가져오면 된다.
 	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
@@ -56,8 +55,6 @@ namespace ft
 			typedef typename Alloc::template rebind<node>::other 					alloc_node;
 			typedef typename Alloc::reference										reference;
 			typedef typename Alloc::const_reference									const_reference;
-			//typedef value_type&										reference;
-			//typedef const value_type&									const_reference;
 			typedef ft::bidirectional_iterator<value_type, Compare, node>			iterator;
 			typedef ft::bidirectional_iterator<const value_type, Compare, node>		const_iterator;
 			typedef size_t															size_type;
@@ -143,9 +140,9 @@ namespace ft
 					if (node->right)
 						node->right->parent = node;
 				}
-                else  // 삭제할 노드 발견
-                {
-                    if (node->left && (!node->right || node->right == _last_node))
+				else  // 삭제할 노드 발견
+				{
+					if (node->left && (!node->right || node->right == _last_node))
 					{
 						struct node* _target = node;
 						node = _target->left;
@@ -157,7 +154,7 @@ namespace ft
 						}
 						dealloc_node(_target);
 					}
-                    else if (!node->left && node->right)
+					else if (!node->left && node->right)
 					{
 						struct node* _target = node;
 						node = _target->right;
@@ -181,21 +178,19 @@ namespace ft
 						dealloc_node(node);
 						return NULL;
 					}
-                }
-                //node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
-                node->height = get_max_height(node) + 1;
-                return balance_tree(node);
-            };
+				}
+				node->height = get_max_height(node) + 1;
+				return balance_tree(node);
+			};
 
 			node* del_min(node* node)
-            {
-                if (!node->left)
-                    return node->right;
-                node->left = del_min(node->left);
-                //node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
-                node->height = get_max_height(node) + 1;
-                return balance_tree(node);
-            };
+			{
+				if (!node->left)
+					return node->right;
+				node->left = del_min(node->left);
+				node->height = get_max_height(node) + 1;
+				return balance_tree(node);
+			};
 
 			int get_height(node* node)
 			{
@@ -528,7 +523,7 @@ namespace ft
 
 			void				erase(iterator position)
 			{
-				_root = delete_node(_root, position.getNode()->value.first);
+				_root = delete_node(_root, position.get_node()->value.first);
 				_size--;
 			};
 

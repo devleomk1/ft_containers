@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:48:13 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/12 16:51:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 20:01:41 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,41 @@ namespace ft
 			: _node(Node), _last_node(lastNode), _comp(comp) {
 			}
 
-			bidirectional_iterator(const bidirectional_iterator<value_type, Compare, node>& other)
+			bidirectional_iterator(const bidirectional_iterator<value_type, Compare, node>& x)
 			{
-				_node = other.getNode();
-				_last_node = other.getLastNode();
-				_comp = other.getCompare();
+				_node = x.get_node();
+				_last_node = x.get_last_node();
+				_comp = x.getCompare();
 			}
 
 			~bidirectional_iterator() {}
 
-			bidirectional_iterator& operator=(const bidirectional_iterator<value_type, Compare, node>& other)
+			bidirectional_iterator& operator=(const bidirectional_iterator<value_type, Compare, node>& x)
 			{
-				if (this != &other)
+				if (this != &x)
 				{
-					_node = other._node;
-					_last_node = other._last_node;
-					_comp = other._comp;
+					_node = x._node;
+					_last_node = x._last_node;
+					_comp = x._comp;
 				}
 				return (*this);
 			}
 
-			node* getNode() const               { return _node; }
-			node* getLastNode() const           { return _last_node; }
-			key_compare getCompare() const      { return _comp; }
-			reference operator*() const         { return (_node->value); }
-			pointer operator->() const          { return (&_node->value); }
+			node* get_node() const{
+				return (_node);
+			};
+			node* get_last_node() const{
+				return (_last_node);
+			};
+			key_compare getCompare() const{
+				return (_comp);
+			};
+			reference operator*() const{
+				return (_node->value);
+			};
+			pointer operator->() const{
+				return (&_node->value);
+			}
 
 			bidirectional_iterator& operator++()
 			{
@@ -76,15 +86,15 @@ namespace ft
 						_node = _node->parent;
 					} while (_node && tmp == _node->right);
 				}
-				return *this;
-			}
+				return (*this);
+			};
 
 			bidirectional_iterator operator++(int)
 			{
-				bidirectional_iterator tem(*this);
+				bidirectional_iterator tmp(*this);
 				operator++();
-				return tem;
-			}
+				return (tmp);
+			};
 
 			bidirectional_iterator& operator--()
 			{
@@ -103,27 +113,31 @@ namespace ft
 						_node = _node->parent;
 					} while (_node && tmp == _node->left);
 				}
-				return *this;
-			}
+				return (*this);
+			};
 
 			bidirectional_iterator operator--(int)
 			{
-	  			bidirectional_iterator tem(*this);
+	  			bidirectional_iterator tmp(*this);
 				operator--();
-				return tem;
+				return tmp;
 			}
 
-			bool operator==(const bidirectional_iterator& it) const   { return (it._node == _node); }
-			bool operator!=(const bidirectional_iterator& it) const   { return (it._node != _node); }
+			bool operator==(const bidirectional_iterator& it) const{
+				return (it._node == _node);
+			};
+			bool operator!=(const bidirectional_iterator& it) const{
+				return (it._node != _node);
+			};
 
-
-			operator bidirectional_iterator<const value_type, Compare, node> () const
-			{ return (bidirectional_iterator<const value_type, Compare, node>(_node, _last_node, _comp)); }
+			operator bidirectional_iterator<const value_type, Compare, node> () const{
+				return (bidirectional_iterator<const value_type, Compare, node>(_node, _last_node, _comp));
+			};
 
 		private:
-			node*       _node;
-			node*       _last_node;
-			key_compare _comp;
+			node*			_node;
+			node*			_last_node;
+			key_compare		_comp;
 
 	};
 
@@ -131,39 +145,37 @@ namespace ft
 	bool operator==(ft::bidirectional_iterator<const T, Compare, node>& x,
 		ft::bidirectional_iterator<T, Compare, node>& y)
 	{
-		if (x.getNode() == NULL && y.getNode() == NULL)
+		if (x.get_node() == NULL && y.get_node() == NULL)
 			return false;
-		return (x.getNode() == y.getNode());
-	}
+		return (x.get_node() == y.get_node());
+	};
 
 	template <typename T, typename Compare, typename node>
 	bool operator==(ft::bidirectional_iterator<T, Compare, node>& x,
 		ft::bidirectional_iterator<const T, Compare, node>& y)
 	{
-		if (x.getNode() == NULL && y.getNode() == NULL)
+		if (x.get_node() == NULL && y.get_node() == NULL)
 			return false;
-		return (x.getNode() == y.getNode());
-	}
+		return (x.get_node() == y.get_node());
+	};
 
 	template <typename T, typename Compare, typename node>
 	bool operator!=(ft::bidirectional_iterator<const T, Compare, node>& x,
 		ft::bidirectional_iterator<T, Compare, node>& y)
 	{
-		if (x.getNode() == NULL && y.getNode() == NULL)
+		if (x.get_node() == NULL && y.get_node() == NULL)
 			return true;
-		return (x.getNode() != y.getNode());
-	}
+		return (x.get_node() != y.get_node());
+	};
 
 	template <typename T, typename Compare, typename node>
 	bool operator!=(ft::bidirectional_iterator<T, Compare, node>& x,
 		ft::bidirectional_iterator<const T, Compare, node>& y)
 	{
-		if (x.getNode() == NULL && y.getNode() == NULL)
+		if (x.get_node() == NULL && y.get_node() == NULL)
 			return true;
-		return (x.getNode() != y.getNode());
-	}
-
-
+		return (x.get_node() != y.get_node());
+	};
 }
 
 #endif

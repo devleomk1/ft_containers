@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 00:33:53 by jisokang          #+#    #+#             */
-/*   Updated: 2022/11/04 00:05:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:49:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 		void push(const value_type& x) { c.push_back(x); }
 		void pop() { c.pop_back(); }
 
-	// 🚨 '_T'가 되는 이유가 무엇인가?
 	template <class _T, class _Container>
 	friend bool operator==(const stack<_T, _Container>& x, const stack<_T, _Container>& y);
 

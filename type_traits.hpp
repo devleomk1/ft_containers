@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:40:59 by jisokang          #+#    #+#             */
-/*   Updated: 2022/10/23 14:34:59 by jisokang         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:50:00 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ namespace ft
 	 * [x] unsigned long long int(Since C++11)
 	 */
 
-	template<>											//이거 템플릿에 안 넣어주는 이유는?
-	struct is_integral<bool> : public true_type {};		//여기 들어가는 type들의 기준은 무엇인가? 왜 이것들만 들어감?
+	template<>
+	struct is_integral<bool> : public true_type {};
 
 	template<>
 	struct is_integral<char> : public true_type {};
