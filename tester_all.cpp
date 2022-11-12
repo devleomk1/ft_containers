@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include "color.hpp"
 #if 0
 	#include <map>
 	#include <stack>
@@ -60,9 +61,9 @@ int main()
 	double duration;
 	start = clock();
 
-	std::cout << "*************************************************************************" << std::endl;
-	std::cout << "\t\t\t\tVector" << std::endl;
-	std::cout << "*************************************************************************" << std::endl;
+	std::cout << GREEN "*************************************************************************" RESET << std::endl;
+	std::cout << MAGENTA "\t\t\t\tVector" RESET << std::endl;
+	std::cout << GREEN "*************************************************************************" RESET << std::endl;
 	//NOTE - Constructor
 	{
 		std::cout << "------------- Vector Constructors -------------" << std::endl;
@@ -473,14 +474,14 @@ int main()
 
 	finish = clock();
 	duration = (double)(finish - start) / CLOCKS_PER_SEC;
-	std::cout << "++++++++++++++++++++||vector escape = " << duration << "sec||++++++++++++++++++++" << std::endl;
+	std::cout << CYAN "+++++++++++++++++++++||" RESET "vector escape = " << duration << "sec" CYAN "||+++++++++++++++++++++\n\n" RESET;
 
 	start = clock();
 
 
-	std::cout << "*************************************************************************" << std::endl;
-	std::cout << "\t\t\t\tStack" << std::endl;
-	std::cout << "*************************************************************************" << std::endl;
+	std::cout << GREEN "*************************************************************************" RESET << std::endl;
+	std::cout << MAGENTA "\t\t\t\tStack" RESET << std::endl;
+	std::cout << GREEN "*************************************************************************" RESET << std::endl;
 	// NOTE - MYNAME::stack::stack
 	{
 		std::cout << "------------- Stack constructor -------------" << std::endl;
@@ -698,13 +699,13 @@ int main()
 
 	finish = clock();
 	duration = (double)(finish - start) * 1000.0 / CLOCKS_PER_SEC;
-	std::cout << "++++++++++++++++++++||stack escape = " << duration << "sec||++++++++++++++++++++" << std::endl;
+	std::cout << CYAN "+++++++++++++++++++++||" RESET "stack escape = " << duration << "sec" CYAN "||+++++++++++++++++++++\n\n" RESET;
 
 	//start = clock();
 
-	std::cout << "*************************************************************************" << std::endl;
-	std::cout << "\t\t\t\tMap" << std::endl;
-	std::cout << "*************************************************************************" << std::endl;
+	std::cout << GREEN "*************************************************************************" RESET << std::endl;
+	std::cout << MAGENTA "\t\t\t\tMap" RESET << std::endl;
+	std::cout << GREEN "*************************************************************************" RESET << std::endl;
 	// NOTE - Construct pair
 	{
 		std::cout << "------------- Pair Constructor -------------" << std::endl;
@@ -1035,10 +1036,13 @@ int main()
 		}
 	}
 
+	std::cout << "*************************************************************************" << std::endl;
+	std::cout << "\t\t\t\tEnd Map" << std::endl;
+	std::cout << "*************************************************************************" << std::endl;
 	finish = clock();
 
 	duration = (double)(finish - start) / CLOCKS_PER_SEC;
-	std::cout << "++++++++++++++++++++||map escape = " << duration << "sec||++++++++++++++++++++" << std::endl;
+	std::cout << CYAN "++++++++++++++++++++||" RESET "map escape = " << duration << "sec" CYAN "||++++++++++++++++++++\n" RESET << std::endl;
 
 	std::atexit(at_exit_leak);
 }
